@@ -17,3 +17,20 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    todo = db.Column(db.String(200), unique=False, nullable=True)
+    inProgress = db.Column(db.String(200), unique=False, nullable=True)
+    done = db.Column(db.String(200), unique=False, nullable=True)
+
+    def __repr__(self):
+        return f'<User {self.todo}>'
+
+    def serialize(self):
+        return {
+            "todo": self.todo,
+            "inProgress": self.inProgress,
+            "done": self.done,
+            # do not serialize the password, its a security breach
+        }

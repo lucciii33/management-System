@@ -1,0 +1,39 @@
+.box-chart {
+  width: 400px;
+  height: 500px;
+  border: 1px solid #ccc;
+  margin: 15px;
+}
+.input-task {
+  width: 340px;
+  height: 120px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+.title-bg-todo {
+  background-color: #f08080;
+}
+.title-bg-inProgress {
+  background-color: #ff7f50;
+}
+.title-bg-done {
+  background-color: #90ee90;
+}
+.btn-inProgress {
+  background-color: #ff7f50;
+  width: 35px;
+  height: auto;
+  border-radius: 10px;
+}
+.btn-done {
+  background-color: #90ee90;
+  width: 35px;
+  height: auto;
+  border-radius: 10px;
+}
+.box-todo {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  margin: 15px;
+  box-shadow: 10px 10px 5px #b5b5b5;
+}
