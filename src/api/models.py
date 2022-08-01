@@ -23,11 +23,14 @@ class StatusType(enum.Enum):
     todo = "todo"
     inProgress = "inProgress"
     done = "done"
+
+for stat in StatusType:
+    print(stat.value)
 class Project(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(200), unique=False, nullable=True)
-    status_type = db.Column(db.Enum(StatusType),default=StatusType.todo, nullable=False)
+    stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
     
 
     def __repr__(self):
