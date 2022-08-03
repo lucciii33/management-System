@@ -36,7 +36,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(res => res.json())
 					.then(info => setStore({ tasks: info }))
 					.catch((error) => console.log(error))
-			}
+			},
+
+			deleteTask: (id) => {
+				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us59.gitpod.io/api/task/${id}`, {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				})
+					.then((res) => res.json())
+					.then((info) => setStore({ tasks: info }))
+					.catch((err) => console.log(err));
+			},
 
 		}
 	};

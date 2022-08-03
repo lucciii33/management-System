@@ -59,7 +59,7 @@ def edit_tasks(id):
 
 @api.route('/task/<int:id>', methods=['DELETE'])
 def delete_tasks(id):
-    task_id = Project.query.filter_by(id).one_or_none(id=id)
+    task_id = Project.query.get(id)
     if task_id is None:
         raise APIException('task not found', status_code=404)
    
@@ -68,6 +68,6 @@ def delete_tasks(id):
 
     
     task_query = Project.query.all()
-    all_tasks = list(map(lambda x: x.serialize(), todo_query))
+    all_tasks = list(map(lambda x: x.serialize(), task_query))
 
     return jsonify(all_tasks), 200

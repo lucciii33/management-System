@@ -16,12 +16,15 @@ export const Chart = () => {
 		<div className="container">
 			<div>
 				<div className="d-flex m-3 mt-5">
-					<h3 className="pe-5">Write todo here:</h3>
-					<input className="input-task"
-						name="todo"
-						value={inputValue}
-						onChange={(e) => setInputValue(e.target.value)}></input>
-					<button onClick={() => actions.createTask(inputValue)}>send at todo</button>
+					<div className="d-flex">
+						<h3 className="pe-5">Write todo here:</h3>
+						<input className="input-task"
+							name="todo"
+							value={inputValue}
+							onChange={(e) => setInputValue(e.target.value)}></input>
+						<button onClick={() => actions.createTask(inputValue)} className="btn-send ms-3 ps-1">Send <i class="fas fa-paper-plane"></i>
+						</button>
+					</div>
 				</div>
 			</div>
 			<div className="d-flex flex-wrap">
@@ -40,6 +43,7 @@ export const Chart = () => {
 										<p>{item.task}</p>
 										<button className="btn-inProgress m-1" onClick={() => actions.changeTask("inProgress", item.id)} ><i class="fas fa-spinner"></i></button>
 										<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
+										<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
 									</div>)
 							}
 						})}
@@ -61,6 +65,7 @@ export const Chart = () => {
 									<p>{item.task}</p>
 									<button className="btn-todo m-1" onClick={() => actions.changeTask("todo", item.id)} ><i class="fas fa-clipboard-list"></i></button>
 									<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
+									<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
 								</div>)
 						}
 					})}
@@ -78,6 +83,7 @@ export const Chart = () => {
 									<p>{item.task}</p>
 									<button className="btn-inProgress m-1" onClick={() => actions.changeTask("inProgress", item.id)} ><i class="fas fa-spinner"></i></button>
 									<button className="btn-todo m-1"><i class="fas fa-clipboard-list"></i></button>
+									<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
 								</div>)
 						}
 					})}

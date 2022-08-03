@@ -6,6 +6,7 @@ import { Home } from "./pages/home";
 import { Chart } from "./pages/chart";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
+import { Calendary } from "./pages/calendar";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -24,6 +25,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Chart />} path="/chart" />
+                        <Route element={<Calendary />} path="/calendar" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
