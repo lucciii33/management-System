@@ -6,10 +6,11 @@ import { Context } from "../store/appContext";
 
 export const Chart = () => {
 	const { store, actions } = useContext(Context);
-	const [inputValue, setInputValue] = useState({ todo: "" });
-	const handleChange = e => {
-		setInputValue({ ...inputValue, [e.target.name]: e.target.value });
-	};
+	const [inputValue, setInputValue] = useState("");
+	// const [status, SetStatus] = useState({ task: "", answer_type:""})
+	// const handleChange = e => {
+	// 	setInputValue({ ...inputValue, [e.target.name]: e.target.value });
+	// };
 
 	return (
 		<div className="container">
@@ -18,8 +19,9 @@ export const Chart = () => {
 					<h3 className="pe-5">Write todo here:</h3>
 					<input className="input-task"
 						name="todo"
-						value={inputValue.todo}
-						onChange={handleChange}></input>
+						value={inputValue}
+						onChange={(e) => setInputValue(e.target.value)}></input>
+					<button onClick={() => actions.createTask(inputValue)}>send at todo</button>
 				</div>
 			</div>
 			<div className="d-flex flex-wrap">
@@ -31,16 +33,16 @@ export const Chart = () => {
 					</div>
 
 					<div className="">
-						<div className="d-flex p-2 box-todo">
-							<p>here is mi task and it need to see larger to see is it feet in the pc</p>
-							<button className="btn-inProgress m-1" ><i class="fas fa-spinner"></i></button>
-							<button className="btn-done m-1"><i class="far fa-check-circle"></i></button>
-						</div>
-						<div className="d-flex p-2 box-todo">
-							<p>here is mi task and it need to see larger to see is it feet in the pc</p>
-							<button className="btn-inProgress m-1" ><i class="fas fa-spinner"></i></button>
-							<button className="btn-done m-1"><i class="far fa-check-circle"></i></button>
-						</div>
+						{store.tasks.map((item) => {
+							if (item.answer_type == "todo") {
+								return (
+									<div className="d-flex p-2 box-todo">
+										<p>{item.task}</p>
+										<button className="btn-inProgress m-1" onClick={() => actions.changeTask("inProgress", item.id)} ><i class="fas fa-spinner"></i></button>
+										<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
+									</div>)
+							}
+						})}
 
 
 
@@ -52,6 +54,16 @@ export const Chart = () => {
 							<h2>InProgress</h2>
 						</div>
 					</div>
+					{store.tasks.map((item) => {
+						if (item.answer_type == "inProgress") {
+							return (
+								<div className="d-flex p-2 box-todo">
+									<p>{item.task}</p>
+									<button className="btn-todo m-1" onClick={() => actions.changeTask("todo", item.id)} ><i class="fas fa-clipboard-list"></i></button>
+									<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
+								</div>)
+						}
+					})}
 				</div>
 				<div className="box-chart">
 					<div className="text-center">
@@ -59,6 +71,16 @@ export const Chart = () => {
 							<h2 >Done</h2>
 						</div>
 					</div>
+					{store.tasks.map((item) => {
+						if (item.answer_type == "done") {
+							return (
+								<div className="d-flex p-2 box-todo">
+									<p>{item.task}</p>
+									<button className="btn-inProgress m-1" onClick={() => actions.changeTask("inProgress", item.id)} ><i class="fas fa-spinner"></i></button>
+									<button className="btn-todo m-1"><i class="fas fa-clipboard-list"></i></button>
+								</div>)
+						}
+					})}
 				</div>
 			</div>
 		</div>

@@ -19,27 +19,29 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class AnswerType(enum.Enum):
-    no = 'No'
-    yes = 'Yes'
-    dont_know = 'Do not Know'
+# class AnswerType(enum.Enum):
+#     no = 'No'
+#     yes = 'Yes'
+#     dont_know = 'Do not Know'
 
-    def __str__(self):
-        return self.value
+#     def __str__(self):
+#         return self.value
+
 
 class Project(db.Model):
-    __tablename__ = "project"
     id = db.Column(db.Integer, primary_key=True)
-    task = db.Column(db.String(200), unique=False, nullable=True)
-    answer_type = db.Column(db.Enum(AnswerType), nullable=False)
+    task = db.Column(db.String(200), unique=False, nullable=False)
+    answer_type = db.Column(db.String(50), unique=False, nullable=False )
     # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
     
 
     def __repr__(self):
-        return f'<User {self.todo}>'
+        return f'<Project {self.task}>'
 
     def serialize(self):
         return {
             "task": self.task,
+            "answer_type": self.answer_type,
+            "id": self.id,
             # do not serialize the password, its a security breach
         }

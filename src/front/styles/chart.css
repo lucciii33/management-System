@@ -25,6 +25,12 @@
   height: auto;
   border-radius: 10px;
 }
+.btn-todo {
+  background-color: #f08080;
+  width: 35px;
+  height: auto;
+  border-radius: 10px;
+}
 .btn-done {
   background-color: #90ee90;
   width: 35px;

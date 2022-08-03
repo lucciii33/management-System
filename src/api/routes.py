@@ -32,7 +32,7 @@ def get_tasks():
 def post_tasks():
     body = request.get_json()
 
-    task = Project(todo= body['todo'], inProgress=body['inProgress'], done= body['done'])
+    task = Project(task= body['task'], answer_type="todo")
     db.session.add(task)
     db.session.commit()
     task_query = Project.query.all()
@@ -44,16 +44,12 @@ def post_tasks():
 def edit_tasks(id):
     body = request.get_json()
 
-    task_id = Project.query.get(id)
-    if task_id is None:
-        raise APIException('User not found', status_code=404)
+    task = Project.query.filter_by(id=id).one_or_none()
+    if task is None:
+        raise APIException('task not found', status_code=404)
 
-    if "todo" in body:
-        task_id.label = body["todo"]
-    if "inProgress" in body:
-        task_id.inProgress = body["inProgress"]
-    if "done" in body:
-        task_id.done= body["done"]
+    if "answer_type" in body:
+        task.answer_type = body["answer_type"]
         db.session.commit()
 
     task_query = Project.query.all()
@@ -63,9 +59,9 @@ def edit_tasks(id):
 
 @api.route('/task/<int:id>', methods=['DELETE'])
 def delete_tasks(id):
-    task_id = Project.query.get(id)
+    task_id = Project.query.filter_by(id).one_or_none(id=id)
     if task_id is None:
-        raise APIException('User not found', status_code=404)
+        raise APIException('task not found', status_code=404)
    
     db.session.delete(task_id)
     db.session.commit()
