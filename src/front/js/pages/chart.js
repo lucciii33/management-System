@@ -9,15 +9,21 @@ export const Chart = () => {
 	const { store, actions } = useContext(Context);
 	const [inputValue, setInputValue] = useState("");
 	const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
+	const [status, setStatus] = useState(0)
+	const [interv, setInterv] = useState()
 	var updateMs = time.ms, updateS = time.s, updateM = time.m, updateH = time.h;
+
+
 	const start = () => {
 		run();
-		setInterval(run, 10);
+		setStatus(1)
+		setInterv(setInterval(run, 10));
 	}
 	const stop = () => {
-		start();
-		clearInterval(start)
+		clearInterval(interv)
+		setStatus(1);
 	}
+
 	const run = () => {
 		if (updateM === 60) {
 			updateH++;
@@ -35,12 +41,16 @@ export const Chart = () => {
 		return setTime({ ms: updateMs, s: updateS, m: updateM, h: updateH })
 	}
 
+	// const done = () => {
+	// 	actions.changeTask("done", item.id)
+	// }
+
 	return (
 		<div className="container">
 			<div>
 				<ClockTask time={time} />
-				<button onClick={start}>start</button>
-				<button onClick={stop}>stop</button>
+				{(status === 0) ? <div> <button onClick={start}>start</button></div> : ""}
+				{(status === 1) ? <button onClick={stop}>stop</button> : <button onClick={stop}>stop</button>}
 			</div>
 			<div>
 				<div className="d-flex m-3 mt-5">
