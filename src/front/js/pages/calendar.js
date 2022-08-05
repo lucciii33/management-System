@@ -21,8 +21,9 @@ export const Calendary = () => {
     // }
 
     return (
-        <div className="text-center mt-5">
+        <div className="m-4 mt-5">
             <Calendar className="cal" onChange={onChange} value={calDate} />
+            <h3>{calDate.toDateString()}</h3>
             {/* <p>here is the day `${arrayToStr}`</p> */}
         </div>
     );
