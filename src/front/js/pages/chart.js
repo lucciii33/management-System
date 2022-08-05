@@ -1,19 +1,47 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/chart.css";
+import { ClockTask } from "./clocktask";
 
 import { Context } from "../store/appContext";
 
 export const Chart = () => {
 	const { store, actions } = useContext(Context);
 	const [inputValue, setInputValue] = useState("");
-	// const [status, SetStatus] = useState({ task: "", answer_type:""})
-	// const handleChange = e => {
-	// 	setInputValue({ ...inputValue, [e.target.name]: e.target.value });
-	// };
+	const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
+	var updateMs = time.ms, updateS = time.s, updateM = time.m, updateH = time.h;
+	const start = () => {
+		run();
+		setInterval(run, 10);
+	}
+	const stop = () => {
+		start();
+		clearInterval(start)
+	}
+	const run = () => {
+		if (updateM === 60) {
+			updateH++;
+			updateM = 0;
+		}
+		if (updateS === 60) {
+			updateM++;
+			updateS = 0;
+		}
+		if (updateMs === 100) {
+			updateS++;
+			updateMs = 0;
+		}
+		updateMs++
+		return setTime({ ms: updateMs, s: updateS, m: updateM, h: updateH })
+	}
 
 	return (
 		<div className="container">
+			<div>
+				<ClockTask time={time} />
+				<button onClick={start}>start</button>
+				<button onClick={stop}>stop</button>
+			</div>
 			<div>
 				<div className="d-flex m-3 mt-5">
 					<div className="d-flex">
@@ -34,7 +62,6 @@ export const Chart = () => {
 							<h2 >ToDo</h2>
 						</div>
 					</div>
-
 					<div className="">
 						{store.tasks.map((item) => {
 							if (item.answer_type == "todo") {
@@ -47,9 +74,6 @@ export const Chart = () => {
 									</div>)
 							}
 						})}
-
-
-
 					</div>
 				</div>
 				<div className="box-chart">
@@ -58,17 +82,22 @@ export const Chart = () => {
 							<h2>InProgress</h2>
 						</div>
 					</div>
-					{store.tasks.map((item) => {
-						if (item.answer_type == "inProgress") {
-							return (
-								<div className="d-flex p-2 box-todo">
-									<p>{item.task}</p>
-									<button className="btn-todo m-1" onClick={() => actions.changeTask("todo", item.id)} ><i class="fas fa-clipboard-list"></i></button>
-									<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
-									<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
-								</div>)
-						}
-					})}
+					<div>
+						{store.tasks.map((item) => {
+							if (item.answer_type == "inProgress") {
+								return (
+									<div className="d-flex p-2 box-todo">
+										<p>{item.task}</p>
+										<button className="btn-todo m-1" onClick={() => actions.changeTask("todo", item.id)} ><i class="fas fa-clipboard-list"></i></button>
+										<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
+										<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
+										<div><ClockTask time={time} /></div>
+
+									</div>)
+							}
+						})}
+
+					</div>
 				</div>
 				<div className="box-chart">
 					<div className="text-center">

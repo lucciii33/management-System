@@ -7,6 +7,7 @@ import { Chart } from "./pages/chart";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 import { Calendary } from "./pages/calendar";
+import { ClockTask } from "./pages/clocktask";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
