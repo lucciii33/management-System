@@ -68,3 +68,18 @@
 .react-calendar__navigation button {
   font-size: 1em;
 }
+/* ////////////////////////////////calendar/////////////////////////////////////////// */
+.datepicker {
+  background-color: #add8e6;
+  width: 295px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  margin: 5px;
+}
+.btn-calendar {
+  background-color: #add8e6;
+  padding: 15px;
+  margin-top: 10px;
+  border: none;
+}
