@@ -55,11 +55,21 @@ export const Chart = () => {
 			<div>
 				<div className="d-flex m-3 mt-5">
 					<div className="d-flex">
-						<h3 className="pe-5">Write todo here:</h3>
-						<input className="input-task"
-							name="todo"
-							value={inputValue}
-							onChange={(e) => setInputValue(e.target.value)}></input>
+						<h3 className="pe-3">Write todo here:</h3>
+						<div>
+							<input className="input-task"
+								name="todo"
+								value={inputValue}
+								onChange={(e) => setInputValue(e.target.value)}></input>
+						</div>
+						<h2 className="pe-3 ps-3">Mabe by:</h2>
+						<div className="mb-5">
+							<input className="input-task"
+								name="todo"
+								value={inputValue}
+								onChange={(e) => setInputValue(e.target.value)}></input>
+						</div>
+
 						<button onClick={() => actions.createTask(inputValue)} className="btn-send ms-3 ps-1">Send <i class="fas fa-paper-plane"></i>
 						</button>
 					</div>

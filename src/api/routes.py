@@ -31,8 +31,8 @@ def get_tasks():
 @api.route('/task', methods=['POST'])
 def post_tasks():
     body = request.get_json()
-
-    task = Project(task= body['task'], answer_type="todo")
+    #explication about body
+    task = Project(task= body['task'], answer_type="todo", madeBy="madeBy")
     db.session.add(task)
     db.session.commit()
     task_query = Project.query.all()
