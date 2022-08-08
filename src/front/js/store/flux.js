@@ -5,12 +5,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {}
 		},
 		actions: {
-			createTask: (data) => {
+			createTask: (data, madeBy) => {
 				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us59.gitpod.io/api/task", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						task: data,
+						madeBy,
 					})
 				})
 					.then(res => res.json())
