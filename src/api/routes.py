@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Project
+from api.models import db, User, Project, Calendar
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -71,3 +71,18 @@ def delete_tasks(id):
     all_tasks = list(map(lambda x: x.serialize(), task_query))
 
     return jsonify(all_tasks), 200
+
+
+##################################here start the roots for calendar###################################3
+
+@api.route('/calendar', methods=['POST'])
+def post_calendar():
+    body = request.get_json()
+    #explication about body
+    calendar = Project(selection= body['selection'])
+    db.session.add(calendar)
+    db.session.commit()
+    calendar_query = Project.query.all()
+    all_calendar = list(map(lambda x: x.serialize(), calendar_query))
+
+    return jsonify(all_calendar), 200

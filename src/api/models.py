@@ -47,3 +47,20 @@ class Project(db.Model):
             "madeBy": self.madeBy,
             # do not serialize the password, its a security breach
         }
+
+
+class Calendar(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    selection = db.Column(db.String(200), unique=False, nullable=False)
+    # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
+    
+
+    def __repr__(self):
+        return f'<Calendar {self.selection}>'
+
+    def serialize(self):
+        return {
+            "selection": self.selection,
+            "id": self.id,
+            # do not serialize the password, its a security breach
+        }

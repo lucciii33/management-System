@@ -2,7 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			tasks: [],
-			user: {}
+			user: {},
+			calendar: []
 		},
 		actions: {
 			createTask: (data, madeBy) => {
@@ -50,6 +51,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then((info) => setStore({ tasks: info }))
 					.catch((err) => console.log(err));
 			},
+
+			createTask: (selection) => {
+				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us59.gitpod.io/api/calendar", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						selection: selection,
+					})
+				})
+					.then(res => res.json())
+					.then(info => setStore({ calendar: info }))
+					.catch((error) => console.log(error))
+			},
+
+
+
+
 
 		}
 	};
