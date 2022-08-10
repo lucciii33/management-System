@@ -1,4 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import DateTime
+from datetime import datetime
 import enum
 
 db = SQLAlchemy()
@@ -51,16 +53,20 @@ class Project(db.Model):
 
 class Calendar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    selection = db.Column(db.String(200), unique=False, nullable=False)
+    description = db.Column(db.String(200), unique=False, nullable=False)
+    start_time = db.Column(db.DateTime(timezone=True) )
+    end_time = db.Column(db.DateTime(timezone=True))
     # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
     
 
     def __repr__(self):
-        return f'<Calendar {self.selection}>'
+        return f'<Calendar {self.description}>'
 
     def serialize(self):
         return {
-            "selection": self.selection,
+            "description": self.description,
             "id": self.id,
+            "start_time": self.start_time,
+            "end_time": self.end_time,
             # do not serialize the password, its a security breach
         }

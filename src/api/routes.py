@@ -79,10 +79,21 @@ def delete_tasks(id):
 def post_calendar():
     body = request.get_json()
     #explication about body
-    calendar = Project(selection= body['selection'])
-    db.session.add(calendar)
+    calendary = Calendar(description= body['description'], start_time= body['start_time'], end_time= body['end_time'])
+    db.session.add(calendary)
     db.session.commit()
-    calendar_query = Project.query.all()
+    calendar_query = Calendar.query.all()
     all_calendar = list(map(lambda x: x.serialize(), calendar_query))
 
     return jsonify(all_calendar), 200
+
+@api.route('/calendar', methods=['GET'])
+def get_calendary_info():
+
+    calendar_query = Calendar.query.all()
+    all_calendaryInfo = list(map(lambda x: x.serialize(), calendar_query))
+    response_body = {
+        "msg": "Hello, this is your GET /tasks response "
+    }
+
+    return jsonify(all_calendaryInfo), 200

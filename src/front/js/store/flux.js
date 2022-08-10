@@ -3,16 +3,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			tasks: [],
 			user: {},
-			calendar: []
+			newEvent: []
 		},
 		actions: {
-			createTask: (data, madeBy) => {
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us59.gitpod.io/api/task", {
+			createTask: (data) => {
+				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/task", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						task: data,
-						madeBy,
 					})
 				})
 					.then(res => res.json())
@@ -21,14 +20,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getTask: () => {
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us59.gitpod.io/api/task")
+				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/task")
 					.then(res => res.json())
 					.then(info => setStore({ tasks: info }))
 					.catch((error) => console.log(error))
 			},
 
 			changeTask: (data, id) => {
-				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us59.gitpod.io/api/task/${id}`, {
+				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/task/${id}`, {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -41,7 +40,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			deleteTask: (id) => {
-				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us59.gitpod.io/api/task/${id}`, {
+				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/task/${id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -52,16 +51,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch((err) => console.log(err));
 			},
 
-			createTask: (selection) => {
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us59.gitpod.io/api/calendar", {
+			createCalendar: (description, start_time, end_time) => {
+				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/calendar", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						selection: selection,
+						description,
+						start_time,
+						end_time
 					})
 				})
 					.then(res => res.json())
-					.then(info => setStore({ calendar: info }))
+					.then(info => setStore({ newEvent: info }))
 					.catch((error) => console.log(error))
 			},
 

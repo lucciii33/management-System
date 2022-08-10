@@ -8,7 +8,7 @@ import { Context } from "../store/appContext";
 export const Chart = () => {
 	const { store, actions } = useContext(Context);
 	const [inputValue, setInputValue] = useState("");
-	const [inputValuePerson, setInputValuePerson] = useState("");
+	// const [inputValuePerson, setInputValuePerson] = useState("");
 	const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
 	const [status, setStatus] = useState(0)
 	const [interv, setInterv] = useState()
@@ -63,15 +63,15 @@ export const Chart = () => {
 								value={inputValue}
 								onChange={(e) => setInputValue(e.target.value)}></input>
 						</div>
-						<h2 className="pe-3 ps-3">Mabe by:</h2>
-						<div className="mb-5">
+						{/* <h2 className="pe-3 ps-3">Mabe by:</h2> */}
+						{/* <div className="mb-5">
 							<input className="input-task"
 								name="madeBy"
 								value={inputValuePerson}
 								onChange={(e) => setInputValuePerson(e.target.value)}></input>
-						</div>
+						</div> */}
 
-						<button onClick={() => actions.createTask(inputValue, inputValuePerson)} className="btn-send ms-3 ps-1">Send <i class="fas fa-paper-plane"></i>
+						<button onClick={() => actions.createTask(inputValue)} className="btn-send ms-3 ps-1">Send <i class="fas fa-paper-plane"></i>
 						</button>
 					</div>
 				</div>
