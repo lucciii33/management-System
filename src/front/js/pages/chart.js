@@ -8,7 +8,7 @@ import { Context } from "../store/appContext";
 export const Chart = () => {
 	const { store, actions } = useContext(Context);
 	const [inputValue, setInputValue] = useState("");
-	// const [inputValuePerson, setInputValuePerson] = useState("");
+	const [inputValuePerson, setInputValuePerson] = useState("");
 	const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0 });
 	const [status, setStatus] = useState(0)
 	const [interv, setInterv] = useState()
@@ -41,10 +41,8 @@ export const Chart = () => {
 		updateMs++
 		return setTime({ ms: updateMs, s: updateS, m: updateM, h: updateH })
 	}
+	var updateMs = time.ms, updateS = time.s, updateM = time.m, updateH = time.h;
 
-	// const done = () => {
-	// 	actions.changeTask("done", item.id)
-	// }
 
 	return (
 		<div className="container">
@@ -109,7 +107,9 @@ export const Chart = () => {
 								return (
 									<div className="d-flex p-2 box-todo">
 										<p>{item.task}</p>
-										<button className="btn-todo m-1" onClick={() => actions.changeTask("todo", item.id)} ><i class="fas fa-clipboard-list"></i></button>
+										<button className="btn-todo m-1" onClick={() => {
+											actions.changeTask("todo", item.id);
+										}} ><i class="fas fa-clipboard-list"></i></button>
 										<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
 										<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
 										<div><ClockTask time={time} /></div>

@@ -33,8 +33,11 @@ export const Calendary = () => {
     const [allEvents, setAllEvents] = useState(store.newEvent);
 
     function handleAddEvent() {
-        setAllEvents([...allEvents, newEvent]);
+        let newDate = new Date()
+        let obj = { title: newEvent.title, start: newDate, end: newEvent.end, time: newEvent.time }
+        setAllEvents([...allEvents, obj]);
     }
+    console.log(newEvent.start, newEvent.end)
 
     return (
 
@@ -54,7 +57,7 @@ export const Calendary = () => {
                     test
                 </button>
             </div>
-            <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" timeAccesor="time" style={{ height: 500, margin: "50px" }} TimePicker="time" />
+            <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
 
             <br />
             <br />
