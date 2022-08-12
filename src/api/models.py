@@ -34,7 +34,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(200), unique=False, nullable=False)
     answer_type = db.Column(db.String(50), unique=False, nullable=False )
-    madeBy = db.Column(db.String(50), unique=False, nullable=True )
+    made_by = db.Column(db.String(50), unique=False, nullable=True )
     # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
     
 
@@ -46,7 +46,7 @@ class Project(db.Model):
             "task": self.task,
             "answer_type": self.answer_type,
             "id": self.id,
-            "madeBy": self.madeBy,
+            "made_by": self.made_by,
             # do not serialize the password, its a security breach
         }
 

@@ -5,7 +5,7 @@ import { ClockTask } from "./clocktask";
 
 import { Context } from "../store/appContext";
 
-export const Chart = () => {
+export const Chart = (data) => {
 	const { store, actions } = useContext(Context);
 	const [inputValue, setInputValue] = useState("");
 	const [inputValuePerson, setInputValuePerson] = useState("");
@@ -61,15 +61,15 @@ export const Chart = () => {
 								value={inputValue}
 								onChange={(e) => setInputValue(e.target.value)}></input>
 						</div>
-						{/* <h2 className="pe-3 ps-3">Mabe by:</h2> */}
-						{/* <div className="mb-5">
+						<h2 className="pe-3 ps-3">Mabe by:</h2>
+						<div className="mb-5">
 							<input className="input-task"
 								name="madeBy"
 								value={inputValuePerson}
 								onChange={(e) => setInputValuePerson(e.target.value)}></input>
-						</div> */}
+						</div>
 
-						<button onClick={() => actions.createTask(inputValue)} className="btn-send ms-3 ps-1">Send <i class="fas fa-paper-plane"></i>
+						<button onClick={() => actions.createTask(inputValue, inputValuePerson)} className="btn-send ms-3 ps-1">Send <i class="fas fa-paper-plane"></i>
 						</button>
 					</div>
 				</div>
@@ -87,6 +87,10 @@ export const Chart = () => {
 								return (
 									<div className="d-flex p-2 box-todo">
 										<p>{item.task}</p>
+										<div>
+
+											<p>made by:{item.made_by}</p>
+										</div>
 										<button className="btn-inProgress m-1" onClick={() => actions.changeTask("inProgress", item.id)} ><i class="fas fa-spinner"></i></button>
 										<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
 										<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
