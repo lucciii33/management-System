@@ -7,12 +7,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			staff: [],
 		},
 		actions: {
+<<<<<<< HEAD
 			createTask: (data) => {
 				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task", {
+=======
+			createTask: (data, made_by) => {
+				console.log(data)
+				console.log(made_by)
+				fetch("https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/task", {
+>>>>>>> refs/remotes/origin/main
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						task: data,
+						made_by: made_by
 					})
 				})
 					.then(res => res.json())
@@ -20,15 +28,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch((error) => console.log(error))
 			},
 
+
 			getTask: () => {
+<<<<<<< HEAD
 				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task")
+=======
+				fetch("https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/task")
+>>>>>>> refs/remotes/origin/main
 					.then(res => res.json())
 					.then(info => setStore({ tasks: info }))
 					.catch((error) => console.log(error))
 			},
 
 			changeTask: (data, id) => {
+<<<<<<< HEAD
 				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task/${id}`, {
+=======
+				fetch(`https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/task/${id}`, {
+>>>>>>> refs/remotes/origin/main
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -41,7 +58,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			deleteTask: (id) => {
+<<<<<<< HEAD
 				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task/${id}`, {
+=======
+				fetch(`https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/task/${id}`, {
+>>>>>>> refs/remotes/origin/main
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -53,7 +74,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			createCalendar: (description, start_time, end_time) => {
+<<<<<<< HEAD
 				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/calendar", {
+=======
+				fetch("https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/calendar", {
+>>>>>>> refs/remotes/origin/main
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({

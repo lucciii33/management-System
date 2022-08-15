@@ -32,7 +32,7 @@ def get_tasks():
 def post_tasks():
     body = request.get_json()
     #explication about body
-    task = Project(task= body['task'], answer_type="todo", madeBy="madeBy")
+    task = Project(task= body['task'], answer_type="todo", made_by=body["made_by"])
     db.session.add(task)
     db.session.commit()
     task_query = Project.query.all()
