@@ -71,7 +71,7 @@ class Staff(db.Model):
 
     def serialize(self):
         return {
-            "Full_Name": self.full_name,
+            "full_name": self.full_name,
             "id": self.id,
             # do not serialize the password, its a security breach
         }

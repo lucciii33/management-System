@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Project, Calendar, Staff
+from api.models import db, User, Project, Calendar, Staff, InAndOut
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -104,8 +104,7 @@ def get_calendary_info():
 @api.route('/staff_member', methods=['POST'])
 def post_staff():
     body = request.get_json()
-    #explication about body
-    system = Staff(full_name = body['full_name'])
+    system = Staff(full_name = body["full_name"])
     db.session.add(system)
     db.session.commit()
     staff_query = Staff.query.all()
@@ -122,3 +121,51 @@ def get_staff_info():
     }
 
     return jsonify(all_staff_info), 200
+
+
+##################################### hours system ################################
+
+@api.route('/hours_system', methods=['POST'])
+def post_staff_hours():
+    body = request.get_json()
+    #explication about body
+    system = InAndOut(person = body['person'], clock_in=body["clock_in"], start_time= body['start_time'], end_time= body['end_time'] )
+    db.session.add(system)
+    db.session.commit()
+    staff_query = Staff.query.all()
+    all_staff = list(map(lambda x: x.serialize(), staff_query))
+
+    return jsonify(all_staff), 200
+
+@api.route('/hours_system', methods=['GET'])
+def get_staff_hours():
+    staff_info_query = InAndOut.query.all()
+    all_staff_info = list(map(lambda x: x.serialize(), staff_info_query))
+    response_body = {
+        "msg": "Hello, here is your staff "
+    }
+
+    return jsonify(all_staff_info), 200
+
+@api.route('/hours_system/<int:id>', methods=['PUT'])
+def edit_todos(id):
+    body = request.get_json()
+
+    staff_id = InAndOut.query.get(id)
+    if staff_id is None:
+        raise APIException('User not found', status_code=404)
+
+    if "person" in body:
+        staff_id.person = body["person"]
+    if "clock_in" in body:
+        staff_id.clock_in = body["clock_in"]
+    if "clock_in" in body:
+        staff_id.start_time = body["start_time"]
+    if "clock_in" in body:
+        staff_id.end_time = body["end_time"]
+        db.session.commit()
+
+    staff_query = InAndOut.query.all()
+    all_staff = list(map(lambda x: x.serialize(), staff_query))
+
+    return jsonify(all_staff), 200

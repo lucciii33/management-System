@@ -5,17 +5,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {},
 			newEvent: [],
 			staff: [],
+			staffHours: []
 		},
 		actions: {
-<<<<<<< HEAD
-			createTask: (data) => {
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task", {
-=======
 			createTask: (data, made_by) => {
-				console.log(data)
-				console.log(made_by)
-				fetch("https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/task", {
->>>>>>> refs/remotes/origin/main
+				fetch(`${process.env.BACKEND_URL}/api/task`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -30,22 +24,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			getTask: () => {
-<<<<<<< HEAD
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task")
-=======
-				fetch("https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/task")
->>>>>>> refs/remotes/origin/main
+				fetch(`${process.env.BACKEND_URL}/api/task`)
 					.then(res => res.json())
 					.then(info => setStore({ tasks: info }))
 					.catch((error) => console.log(error))
 			},
 
 			changeTask: (data, id) => {
-<<<<<<< HEAD
-				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task/${id}`, {
-=======
-				fetch(`https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/task/${id}`, {
->>>>>>> refs/remotes/origin/main
+				fetch(`${process.env.BACKEND_URL}/api/task/${id}`, {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -58,11 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			deleteTask: (id) => {
-<<<<<<< HEAD
-				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task/${id}`, {
-=======
-				fetch(`https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/task/${id}`, {
->>>>>>> refs/remotes/origin/main
+				fetch(`${process.env.BACKEND_URL}/api/task/${id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -74,11 +56,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			createCalendar: (description, start_time, end_time) => {
-<<<<<<< HEAD
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/calendar", {
-=======
-				fetch("https://3001-beige-catfish-r85jgy2ph5c.ws-us60.gitpod.io/api/calendar", {
->>>>>>> refs/remotes/origin/main
+				fetch(`${process.env.BACKEND_URL}goog/api/calendar`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -91,8 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(info => setStore({ newEvent: info }))
 					.catch((error) => console.log(error))
 			},
-
-			// here start the in-out system //
+			//here staff names//
 			getStaffMembers: async () => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/staff_member`);
@@ -118,6 +95,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(info => setStore({ staff: info }))
 					.catch((error) => console.log(error))
 			},
+
+			// here start the in-out system //
+			getStaffHours: async () => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/hours_system`);
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ staffHours: data })
+						console.log(data)
+					}
+				} catch (error) {
+					throw Error(error);
+				}
+			},
+
+			createStaffHours: (person, clock_in, start_time, end_time) => {
+				fetch(`${process.env.BACKEND_URL}/api/hours_system`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						person, clock_in, start_time, end_time
+					})
+				})
+					.then(res => res.json())
+					.then(info => setStore({ staffHours: info }))
+					.catch((error) => console.log(error))
+			},
+
+			//here the hours system for the user
+
+
 
 
 		}

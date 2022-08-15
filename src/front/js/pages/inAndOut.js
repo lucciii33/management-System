@@ -5,8 +5,9 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 
 export const InAndOut = props => {
-
-	const [staffMember, setStaffMember] = useState({ full_name: "" });
+	var [date, setDate] = useState(new Date());
+	const [staffMember, setStaffMember] = useState(null);
+	const [staffHours, setStaffHours] = useState(null);
 	const handleChange = e => {
 		setStaffMember({ ...staffMember, [e.target.name]: e.target.value });
 	};
@@ -17,32 +18,47 @@ export const InAndOut = props => {
 	useEffect(() => {
 		actions.getStaffMembers();
 	}, [])
+	useEffect(() => {
+		setStaffHours({ person: staffMember, clock_in: false, start_time: new Date(), end_time: new Date() });
+	}, [staffMember])
+
+	useEffect(() => {
+		var timer = setInterval(() => setDate(new Date()), 1000)
+		return function cleanup() {
+			clearInterval(timer)
+		}
+
+	});
 
 	return (
 		<div className="jumbotron">
-			<h1>working</h1>
-
 
 			<div className="btn-group">
-				<button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-					Action
+				<button type="button" className="btn btn-primary dropdown-toggle m-4" data-bs-toggle="dropdown" aria-expanded="false">
+					choose your name
 				</button>
 				<ul class="dropdown-menu">
-					{store.staff.map((item) => { return (<li>{item.Full_Name}</li>) })}
+					{store?.staff.map((item) => { return (<li onClick={() => setStaffMember({ full_name: item })}>{item.full_name}</li>) })}
 				</ul>
 			</div>
 
 			<div>
 				<input className="input-in-out m-1" name="fullName"
-					value={staffMember.full_name}
+					value={staffMember?.full_name}
 					onChange={handleChange} />
-				<button className="btn btn-primary m-1" onClick={() => actions.createStaffMember(staffMember.full_name)} >send me to the back end</button>
+				<button className="btn btn-primary m-1" onClick={() => actions.createStaffMember(staffMember?.full_name)} >send me to the back end</button>
+			</div>
+
+			<div>
+				<p> Time : {date.toLocaleTimeString()}</p>
+				<p> Date : {date.toLocaleDateString()}</p>
 			</div>
 
 			<div className="d-flex flex-wrap">
 				<div className="box-out m-2">
 					<div>
 						<h2 className="in">clock-out</h2>
+						<h3></h3>
 					</div>
 				</div>
 				<div className="box-in m-2">
