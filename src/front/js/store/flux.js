@@ -3,11 +3,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			tasks: [],
 			user: {},
-			newEvent: []
+			newEvent: [],
+			staff: [],
 		},
 		actions: {
 			createTask: (data) => {
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/task", {
+				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -20,14 +21,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getTask: () => {
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/task")
+				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task")
 					.then(res => res.json())
 					.then(info => setStore({ tasks: info }))
 					.catch((error) => console.log(error))
 			},
 
 			changeTask: (data, id) => {
-				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/task/${id}`, {
+				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task/${id}`, {
 					method: "PUT",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -40,7 +41,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			deleteTask: (id) => {
-				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/task/${id}`, {
+				fetch(`https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/task/${id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
@@ -52,7 +53,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			createCalendar: (description, start_time, end_time) => {
-				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-us60.gitpod.io/api/calendar", {
+				fetch("https://3001-lucciii33-managementsys-nfd2qefwvai.ws-eu61.gitpod.io/api/calendar", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -66,8 +67,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch((error) => console.log(error))
 			},
 
+			// here start the in-out system //
+			getStaffMembers: async () => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/staff_member`);
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ staff: data })
+						console.log(data)
+					}
+				} catch (error) {
+					throw Error(error);
+				}
+			},
 
-
+			createStaffMember: (full_name) => {
+				fetch(`${process.env.BACKEND_URL}/api/staff_member`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						full_name,
+					})
+				})
+					.then(res => res.json())
+					.then(info => setStore({ staff: info }))
+					.catch((error) => console.log(error))
+			},
 
 
 		}

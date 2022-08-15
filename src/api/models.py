@@ -21,15 +21,6 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-# class AnswerType(enum.Enum):
-#     no = 'No'
-#     yes = 'Yes'
-#     dont_know = 'Do not Know'
-
-#     def __str__(self):
-#         return self.value
-
-
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(200), unique=False, nullable=False)
@@ -68,5 +59,41 @@ class Calendar(db.Model):
             "id": self.id,
             "start_time": self.start_time,
             "end_time": self.end_time,
+            # do not serialize the password, its a security breach
+        }
+
+class Staff(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    full_name = db.Column(db.String(200), unique=False, nullable=False)
+
+    def __repr__(self):
+        return f'<Staff {self.full_name}>'
+
+    def serialize(self):
+        return {
+            "Full_Name": self.full_name,
+            "id": self.id,
+            # do not serialize the password, its a security breach
+        }
+
+class InAndOut(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    person = db.Column(db.String(200), unique=False, nullable=False)
+    start_time = db.Column(db.DateTime(timezone=True) )
+    end_time = db.Column(db.DateTime(timezone=True))
+    clock_in = db.Column(db.Boolean(), unique=False, nullable=False)
+    # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
+    
+
+    def __repr__(self):
+        return f'<InAndOut {self.person}>'
+
+    def serialize(self):
+        return {
+            "person": self.person,
+            "id": self.id,
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "clock_in": self.clock_in,
             # do not serialize the password, its a security breach
         }

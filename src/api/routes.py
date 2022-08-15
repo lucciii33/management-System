@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Project, Calendar
+from api.models import db, User, Project, Calendar, Staff
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -97,3 +97,28 @@ def get_calendary_info():
     }
 
     return jsonify(all_calendaryInfo), 200
+
+
+##################################Start here in-out system######################################################
+
+@api.route('/staff_member', methods=['POST'])
+def post_staff():
+    body = request.get_json()
+    #explication about body
+    system = Staff(full_name = body['full_name'])
+    db.session.add(system)
+    db.session.commit()
+    staff_query = Staff.query.all()
+    all_staff = list(map(lambda x: x.serialize(), staff_query))
+
+    return jsonify(all_staff), 200
+
+@api.route('/staff_member', methods=['GET'])
+def get_staff_info():
+    staff_info_query = Staff.query.all()
+    all_staff_info = list(map(lambda x: x.serialize(), staff_info_query))
+    response_body = {
+        "msg": "Hello, here is your staff "
+    }
+
+    return jsonify(all_staff_info), 200

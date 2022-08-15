@@ -109,3 +109,23 @@ svg {
   margin: auto;
   font-family: "Quicksand", sans-serif;
 }
+
+/* //////////////////////////////////////// in-out system ///////////////////////////////////// */
+
+.box-in {
+  width: 400px;
+  height: 450px;
+  border: 2px solid black;
+}
+.box-out {
+  width: 400px;
+  height: 450px;
+  border: 2px solid black;
+}
+.in {
+  background-color: #f08080;
+}
+
+.out {
+  background-color: #90ee90;
+}
