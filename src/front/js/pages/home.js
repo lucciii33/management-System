@@ -22,31 +22,18 @@ export const Home = () => {
 					<img src={chart} className="chart" ></img>
 				</div>
 			</div>
-			<div className="waves">
-				<div className="wave wave-dark" >
-					<div className="water"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 32" preserveAspectRatio="none">
-						<title>wave2</title>
-						<path d="M350,17.32V32H0V17.32C116.56,65.94,175-39.51,350,17.32Z"></path>
-					</svg></div>
-					<div className="water"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 32" preserveAspectRatio="none">
-						<title>wave2</title>
-						<path d="M350,17.32V32H0V17.32C116.56,65.94,175-39.51,350,17.32Z"></path>
-					</svg></div>
-				</div>
-				<div className="wave wave-light" >
-					<div className="water"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 32" preserveAspectRatio="none">
-						<title>wave2</title>
-						<path d="M350,17.32V32H0V17.32C116.56,65.94,175-39.51,350,17.32Z"></path>
-					</svg></div>
-					<div className="water"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 32" preserveAspectRatio="none">
-						<title>wave2</title>
-						<path d="M350,17.32V32H0V17.32C116.56,65.94,175-39.51,350,17.32Z"></path>
-					</svg></div>
-				</div>
-
-
-			</div>
 			<div>
+
+				<div className="home2">
+					<div>
+						<img src={imagetwo} className="imagetwo" ></img>
+					</div>
+					<div className="text2">
+						<h2>why management is important</h2>
+						<p>Importance of Management It helps in Achieving Group Goals - <br />It arranges the factors of production, assembles and organizes the resources,<br /> integrates the resources in effective manner to achieve goals. <br />It directs group efforts towards achievement of pre-determined goals.</p>
+						<button className="btn btn-primary p-2 m-3">Start here</button>
+					</div>
+				</div>
 
 				<div className="d-flex mb-5 p-5">
 					<div>
@@ -65,16 +52,6 @@ export const Home = () => {
 					</div>
 				</div>
 
-			</div>
-			<div className="home2">
-				<div>
-					<img src={imagetwo} className="imagetwo" ></img>
-				</div>
-				<div className="text2">
-					<h2>why management is important</h2>
-					<p>Importance of Management It helps in Achieving Group Goals - <br />It arranges the factors of production, assembles and organizes the resources,<br /> integrates the resources in effective manner to achieve goals. <br />It directs group efforts towards achievement of pre-determined goals.</p>
-					<button className="btn btn-primary p-2 m-3">Start here</button>
-				</div>
 			</div>
 		</div>
 	);
