@@ -19,7 +19,7 @@ export const InAndOut = props => {
 		actions.getStaffMembers();
 	}, [])
 	useEffect(() => {
-		setStaffHours({ person: staffMember, clock_in: false, start_time: new Date(), end_time: new Date() });
+		setStaffHours({ person: staffMember, clock_in: false, start_time: new Date() });
 	}, [staffMember])
 
 	useEffect(() => {
@@ -38,12 +38,17 @@ export const InAndOut = props => {
 					choose your name
 				</button>
 				<ul class="dropdown-menu">
-					{store?.staff.map((item) => { return (<li onClick={() => setStaffMember({ full_name: item })}>{item.full_name}</li>) })}
+					{store?.staff.map((item) => {
+						return (<li onClick={() => {
+							setStaffHours({ person: staffMember, clock_in: true, start_time: new Date() })
+							actions.createStaffHours(staffHours.person, staffHours.clock_in, staffHours.start_time)
+						}}>{item.full_name}</li>)
+					})}
 				</ul>
 			</div>
 
 			<div>
-				<input className="input-in-out m-1" name="fullName"
+				<input className="input-in-out m-1" name="full_name"
 					value={staffMember?.full_name}
 					onChange={handleChange} />
 				<button className="btn btn-primary m-1" onClick={() => actions.createStaffMember(staffMember?.full_name)} >send me to the back end</button>

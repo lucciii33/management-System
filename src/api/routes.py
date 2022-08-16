@@ -102,10 +102,11 @@ def get_calendary_info():
 ##################################Start here in-out system######################################################
 
 @api.route('/staff_member', methods=['POST'])
-def post_staff():
+def post_staff_member():
     body = request.get_json()
-    system = Staff(full_name = body["full_name"])
-    db.session.add(system)
+    #explication about body
+    staff_name = Staff(full_name= body['full_name'])
+    db.session.add(staff_name)
     db.session.commit()
     staff_query = Staff.query.all()
     all_staff = list(map(lambda x: x.serialize(), staff_query))
@@ -129,7 +130,7 @@ def get_staff_info():
 def post_staff_hours():
     body = request.get_json()
     #explication about body
-    system = InAndOut(person = body['person'], clock_in=body["clock_in"], start_time= body['start_time'], end_time= body['end_time'] )
+    system = InAndOut(person = body['person'], clock_in=body["clock_in"], start_time= body['start_time'])
     db.session.add(system)
     db.session.commit()
     staff_query = Staff.query.all()

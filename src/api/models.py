@@ -93,7 +93,7 @@ class InAndOut(db.Model):
             "person": self.person,
             "id": self.id,
             "start_time": self.start_time,
-            "end_time": self.end_time,
+
             "clock_in": self.clock_in,
             # do not serialize the password, its a security breach
         }
