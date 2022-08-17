@@ -31,7 +31,7 @@ export const Home = () => {
 					<div className="text2">
 						<h2>why management is important</h2>
 						<p>Importance of Management It helps in Achieving Group Goals - <br />It arranges the factors of production, assembles and organizes the resources,<br /> integrates the resources in effective manner to achieve goals. <br />It directs group efforts towards achievement of pre-determined goals.</p>
-						<button className="btn btn-primary p-2 m-3">Start here</button>
+						<button className="btn btn-light p-2 m-3">Start here</button>
 					</div>
 				</div>
 

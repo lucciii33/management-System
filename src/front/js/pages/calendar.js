@@ -48,14 +48,14 @@ export const Calendary = () => {
                 <DatePicker placeholderText="Start Date" style={{}} selected={newEvent.start} onChange={(start) => setNewEvent({ ...newEvent, start })} className="datepicker" />
                 <DatePicker placeholderText="End Date" selected={newEvent.end} onChange={(end) => setNewEvent({ ...newEvent, end })} className="datepicker" />
             </div>
-            <TimePicker value={newEvent.time} onChange={(time) => setNewEvent({ ...newEvent, time })} />
+            {/* <TimePicker value={newEvent.time} onChange={(time) => setNewEvent({ ...newEvent, time })} /> */}
             <div>
                 <button onClick={handleAddEvent} className="btn-calendar m-1">
                     Add Event
                 </button>
-                <button className="btn-calendar m-1" onClick={() => actions.createCalendar(newEvent.title, newEvent.start, newEvent.end)}>
+                {/* <button className="btn-calendar m-1" onClick={() => actions.createCalendar(newEvent.title, newEvent.start, newEvent.end)}>
                     test
-                </button>
+                </button> */}
             </div>
             <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
 

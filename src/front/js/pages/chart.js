@@ -46,22 +46,22 @@ export const Chart = (data) => {
 
 	return (
 		<div className="container">
-			<div>
+			{/* <div>
 				<ClockTask time={time} />
 				{(status === 0) ? <div> <button onClick={start}>start</button></div> : ""}
 				{(status === 1) ? <button onClick={stop}>stop</button> : <button onClick={stop}>stop</button>}
-			</div>
+			</div> */}
 			<div>
 				<div className="d-flex m-3 mt-5">
 					<div className="d-flex">
-						<h3 className="pe-3">Write todo here:</h3>
+						<h3 className="pe-3">Write task:</h3>
 						<div>
 							<input className="input-task"
 								name="todo"
 								value={inputValue}
 								onChange={(e) => setInputValue(e.target.value)}></input>
 						</div>
-						<h2 className="pe-3 ps-3">Mabe by:</h2>
+						<h3 className="pe-3 ps-3">Mabe by:</h3>
 						<div className="mb-5">
 							<input className="input-task"
 								name="madeBy"
@@ -86,14 +86,22 @@ export const Chart = (data) => {
 							if (item.answer_type == "todo") {
 								return (
 									<div className="d-flex p-2 box-todo">
-										<p>{item.task}</p>
-										<div>
+										<div className="d-flex justify-content-between">
+											<div>
+												<div className="m-2"><p>{item.task}</p></div>
 
-											<p>made by:{item.made_by}</p>
+												<div className="m-2 ms-2">
+													<p className="">Made by: {item.made_by}</p>
+												</div>
+											</div>
+											<div className="ms-5">
+												<button className="btn-inProgress m-1" onClick={() => actions.changeTask("inProgress", item.id)} ><i class="fas fa-spinner"></i></button>
+												<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
+												<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
+											</div>
+
+
 										</div>
-										<button className="btn-inProgress m-1" onClick={() => actions.changeTask("inProgress", item.id)} ><i class="fas fa-spinner"></i></button>
-										<button className="btn-done m-1" onClick={() => actions.changeTask("done", item.id)}><i class="far fa-check-circle"></i></button>
-										<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
 									</div>)
 							}
 						})}
@@ -136,7 +144,7 @@ export const Chart = (data) => {
 								<div className="d-flex p-2 box-todo">
 									<p>{item.task}</p>
 									<button className="btn-inProgress m-1" onClick={() => actions.changeTask("inProgress", item.id)} ><i class="fas fa-spinner"></i></button>
-									<button className="btn-todo m-1"><i class="fas fa-clipboard-list"></i></button>
+									<button className="btn-todo m-1" onClick={() => actions.changeTask("todo", item.id)}><i class="fas fa-clipboard-list"></i></button>
 									<button onClick={() => actions.deleteTask(item.id)} className="btn-delete m-1"><i class="fas fa-trash-alt"></i></button>
 								</div>)
 						}

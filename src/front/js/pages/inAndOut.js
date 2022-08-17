@@ -35,7 +35,7 @@ export const InAndOut = props => {
 
 			<div className="btn-group">
 				<button type="button" className="btn btn-primary dropdown-toggle m-4" data-bs-toggle="dropdown" aria-expanded="false">
-					choose your name
+					Staff Members
 				</button>
 				<ul class="dropdown-menu">
 					{store?.staff.map((item) => {
@@ -47,19 +47,19 @@ export const InAndOut = props => {
 				</ul>
 			</div>
 
-			<div>
-				<input className="input-in-out m-1" name="full_name"
+			<div cl="m-4">
+				<input className="input-in-out ms-4 m-2" name="full_name"
 					value={staffMember?.full_name}
 					onChange={handleChange} />
-				<button className="btn btn-primary m-1" onClick={() => actions.createStaffMember(staffMember?.full_name)} >send me to the back end</button>
+				<button className="btn btn-primary m-1" style={{ height: "55px" }} onClick={() => actions.createStaffMember(staffMember?.full_name)} >Send</button>
 			</div>
 
-			<div>
+			<div className="m-4">
 				<p> Time : {date.toLocaleTimeString()}</p>
 				<p> Date : {date.toLocaleDateString()}</p>
 			</div>
 
-			<div className="d-flex flex-wrap">
+			<div className="d-flex flex-wrap m-4">
 				<div className="box-out m-2">
 					<div>
 						<h2 className="in">clock-out</h2>
