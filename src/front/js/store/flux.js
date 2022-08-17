@@ -110,12 +110,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			createStaffHours: (person, clock_in, start_time) => {
+			createStaffHours: (person_id, clock_in, start_time) => {
 				fetch(`${process.env.BACKEND_URL}/api/hours_system`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						person, clock_in, start_time
+						person_id, clock_in, start_time
 					})
 				})
 					.then(res => res.json())

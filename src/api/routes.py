@@ -130,7 +130,7 @@ def get_staff_info():
 def post_staff_hours():
     body = request.get_json()
     #explication about body
-    system = InAndOut(person = body['person'], clock_in=body["clock_in"], start_time= body['start_time'])
+    system = InAndOut(person_id = body['person_id'], clock_in=body["clock_in"], start_time= body['start_time'])
     db.session.add(system)
     db.session.commit()
     staff_query = Staff.query.all()

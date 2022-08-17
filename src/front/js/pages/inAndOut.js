@@ -9,7 +9,7 @@ export const InAndOut = props => {
 	const [staffMember, setStaffMember] = useState(null);
 	const [staffHours, setStaffHours] = useState(null);
 	const handleChange = e => {
-		setStaffMember({ ...staffMember, [e.target.name]: e.target.value });
+		setStaffMember({ [e.target.name]: e.target.value });
 	};
 
 	const { store, actions } = useContext(Context);
@@ -19,7 +19,7 @@ export const InAndOut = props => {
 		actions.getStaffMembers();
 	}, [])
 	useEffect(() => {
-		setStaffHours({ person: staffMember, clock_in: false, start_time: new Date() });
+		setStaffHours({ person_id: staffMember?.id, clock_in: true, start_time: new Date() });
 	}, [staffMember])
 
 	useEffect(() => {
@@ -29,6 +29,10 @@ export const InAndOut = props => {
 		}
 
 	});
+
+	useEffect(() => {
+		actions.createStaffHours(staffHours?.person_id, staffHours?.clock_in, staffHours?.start_time)
+	}, [staffHours])
 
 	return (
 		<div className="jumbotron">
@@ -40,15 +44,15 @@ export const InAndOut = props => {
 				<ul class="dropdown-menu">
 					{store?.staff.map((item) => {
 						return (<li onClick={() => {
-							setStaffHours({ person: staffMember, clock_in: true, start_time: new Date() })
-							actions.createStaffHours(staffHours.person, staffHours.clock_in, staffHours.start_time)
+							setStaffMember(item)
 						}}>{item.full_name}</li>)
 					})}
 				</ul>
 			</div>
 
 			<div cl="m-4">
-				<input className="input-in-out ms-4 m-2" name="full_name"
+				<input className="input-in-out ms-4 m-2"
+					name="full_name"
 					value={staffMember?.full_name}
 					onChange={handleChange} />
 				<button className="btn btn-primary m-1" style={{ height: "55px" }} onClick={() => actions.createStaffMember(staffMember?.full_name)} >Send</button>

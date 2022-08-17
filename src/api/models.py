@@ -78,7 +78,8 @@ class Staff(db.Model):
 
 class InAndOut(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    person = db.Column(db.String(200), unique=False, nullable=False)
+    person_id = db.Column(db.Integer, db.ForeignKey('staff.id'), nullable=False)
+    staff = db.relationship("Staff",  backref="inandout", uselist=False)
     start_time = db.Column(db.DateTime(timezone=True) )
     end_time = db.Column(db.DateTime(timezone=True))
     clock_in = db.Column(db.Boolean(), unique=False, nullable=False)
@@ -86,14 +87,13 @@ class InAndOut(db.Model):
     
 
     def __repr__(self):
-        return f'<InAndOut {self.person}>'
+        return f'<InAndOut {self.id}>'
 
     def serialize(self):
         return {
-            "person": self.person,
+            "person_id": self.person_id,
             "id": self.id,
             "start_time": self.start_time,
-
             "clock_in": self.clock_in,
             # do not serialize the password, its a security breach
         }
