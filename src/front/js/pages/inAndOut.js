@@ -84,7 +84,6 @@ export const InAndOut = props => {
 									</div>
 									<div>
 										<button className="btn btn-danger m-3">Clock out</button>
-
 									</div>
 								</div>
 							)
