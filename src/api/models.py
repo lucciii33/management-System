@@ -79,6 +79,7 @@ class Staff(db.Model):
 class InAndOut(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     person_id = db.Column(db.Integer, db.ForeignKey('staff.id'), nullable=False)
+    name = db.Column(db.String(200), unique=False, nullable=True)
     staff = db.relationship("Staff",  backref="inandout", uselist=False)
     start_time = db.Column(db.DateTime(timezone=True) )
     end_time = db.Column(db.DateTime(timezone=True))
@@ -95,5 +96,6 @@ class InAndOut(db.Model):
             "id": self.id,
             "start_time": self.start_time,
             "clock_in": self.clock_in,
+            "name": self.name,
             # do not serialize the password, its a security breach
         }

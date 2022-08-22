@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
+import "../../styles/chart.css";
 
 export const InAndOut = props => {
 	var [date, setDate] = useState(new Date());
@@ -17,9 +18,10 @@ export const InAndOut = props => {
 
 	useEffect(() => {
 		actions.getStaffMembers();
+		actions.getStaffHours();
 	}, [])
 	useEffect(() => {
-		setStaffHours({ person_id: staffMember?.id, clock_in: true, start_time: new Date() });
+		setStaffHours({ person_id: staffMember?.id, clock_in: true, start_time: new Date(), name: staffMember?.full_name });
 	}, [staffMember])
 
 	useEffect(() => {
@@ -31,7 +33,7 @@ export const InAndOut = props => {
 	});
 
 	useEffect(() => {
-		actions.createStaffHours(staffHours?.person_id, staffHours?.clock_in, staffHours?.start_time)
+		actions.createStaffHours(staffHours?.person_id, staffHours?.clock_in, staffHours?.start_time, staffHours?.name)
 	}, [staffHours])
 
 	return (
@@ -73,6 +75,20 @@ export const InAndOut = props => {
 				<div className="box-in m-2">
 					<div >
 						<h2 className="out">clock-in</h2>
+						{store.staffHours.map((person) => {
+							return (
+								<div className="box-clock d-flex">
+									<div className="m-3">
+										<p>{person.name}</p>
+										<p>{person.start_time}</p>
+									</div>
+									<div>
+										<button className="btn btn-danger m-3">Clock out</button>
+
+									</div>
+								</div>
+							)
+						})}
 					</div>
 				</div>
 			</div>
