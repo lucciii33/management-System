@@ -32,7 +32,6 @@ export const InAndOut = props => {
 		return function cleanup() {
 			clearInterval(timer)
 		}
-
 	});
 
 	useEffect(() => {
@@ -60,7 +59,10 @@ export const InAndOut = props => {
 					name="full_name"
 					value={staffMember?.full_name}
 					onChange={handleChange} />
-				<button className="btn btn-primary m-1" style={{ height: "55px" }} onClick={() => actions.createStaffMember(staffMember?.full_name)} >Send</button>
+				<button className="btn btn-primary m-1" style={{ height: "55px" }} onClick={() => {
+					actions.createStaffMember(staffMember?.full_name)
+					setStaffMember({ ...staffMember, full_name: "" })
+				}} >Send</button>
 			</div>
 
 			<div className="m-4">
@@ -72,27 +74,47 @@ export const InAndOut = props => {
 				<div className="box-out m-2">
 					<div>
 						<h2 className="in">clock-out</h2>
-						<h3></h3>
+						{store.staffHours.map((person) => {
+							if (person.clock_in == false) {
+								return (
+									<div className="box-clock d-flex">
+										<div className="m-3">
+											<p>{person.name}</p>
+											<p>{person.start_time}</p>
+											<p>{person.person_id}</p>
+										</div>
+										<div>
+											<button className="btn btn-danger m-3" onClick={() => {
+												actions.editStaffHours(person)
+											}}>Clock out</button>
+										</div>
+									</div>
+								)
+							}
+						})}
 					</div>
 				</div>
 				<div className="box-in m-2">
 					<div >
 						<h2 className="out">clock-in</h2>
-						{store.staffHours.map((person, hours) => {
-							return (
-								<div className="box-clock d-flex">
-									<div className="m-3">
-										<p>{person.name}</p>
-										<p>{person.start_time}</p>
-										<p>{person.person_id}</p>
+						{store.staffHours.map((person) => {
+							if (person.clock_in == true) {
+								return (
+									<div className="box-clock d-flex">
+										<div className="m-3">
+											<p>{person.name}</p>
+											<p>{person.start_time}</p>
+											<p>{person.person_id}</p>
+										</div>
+										<div>
+											<button className="btn btn-danger m-3" onClick={() => {
+												actions.editStaffHours(person)
+											}}>Clock out</button>
+										</div>
 									</div>
-									<div>
-										<button className="btn btn-danger m-3" onClick={() => {
-											actions.editStaffHours(hours)
-										}}>Clock out</button>
-									</div>
-								</div>
-							)
+								)
+							}
+
 						})}
 					</div>
 				</div>

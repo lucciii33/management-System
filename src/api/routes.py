@@ -133,8 +133,9 @@ def post_staff_hours():
     system = InAndOut(person_id = body['person_id'], clock_in=body["clock_in"], start_time= body['start_time'], name=body["name"])
     db.session.add(system)
     db.session.commit()
-    staff_query = Staff.query.all()
+    staff_query = InAndOut.query.all()
     all_staff = list(map(lambda x: x.serialize(), staff_query))
+
 
     return jsonify(all_staff), 200
 

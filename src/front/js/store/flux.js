@@ -123,16 +123,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch((error) => console.log(error))
 			},
 
-			editStaffHours: (hours) => {
-				hours.clock_in = hours.clock_in;
-				console.log(hours);
+			editStaffHours: (data) => {
+				data.clock_in = !data.clock_in;
+				console.log(data);
 				fetch(
-					"https://3000-lucciii33-todobackend-2sswhduf7yz.ws-us38.gitpod.io/todo/" +
-					task.id,
+					`${process.env.BACKEND_URL}/api/hours_system/${data.id}`,
 					{
 						method: "PUT",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify(hours),
+						body: JSON.stringify(data),
 					}
 				)
 					.then(res => res.json())

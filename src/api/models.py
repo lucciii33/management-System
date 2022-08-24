@@ -65,6 +65,7 @@ class Calendar(db.Model):
 class Staff(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(200), unique=False, nullable=False)
+    
 
     def __repr__(self):
         return f'<Staff {self.full_name}>'
