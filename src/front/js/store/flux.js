@@ -123,6 +123,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch((error) => console.log(error))
 			},
 
+			editStaffHours: (hours) => {
+				hours.clock_in = hours.clock_in;
+				console.log(hours);
+				fetch(
+					"https://3000-lucciii33-todobackend-2sswhduf7yz.ws-us38.gitpod.io/todo/" +
+					task.id,
+					{
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(hours),
+					}
+				)
+					.then(res => res.json())
+					.then(info => setStore({ staffHours: info }))
+					.catch((error) => console.log(error))
+			}
 			//here the hours system for the user
 
 

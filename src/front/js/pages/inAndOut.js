@@ -18,6 +18,9 @@ export const InAndOut = props => {
 
 	useEffect(() => {
 		actions.getStaffMembers();
+
+	}, [])
+	useEffect(() => {
 		actions.getStaffHours();
 	}, [])
 	useEffect(() => {
@@ -75,16 +78,18 @@ export const InAndOut = props => {
 				<div className="box-in m-2">
 					<div >
 						<h2 className="out">clock-in</h2>
-						{store.staffHours.map((person) => {
+						{store.staffHours.map((person, hours) => {
 							return (
 								<div className="box-clock d-flex">
 									<div className="m-3">
 										<p>{person.name}</p>
 										<p>{person.start_time}</p>
-										<p>{person.id}</p>
+										<p>{person.person_id}</p>
 									</div>
 									<div>
-										<button className="btn btn-danger m-3">Clock out</button>
+										<button className="btn btn-danger m-3" onClick={() => {
+											actions.editStaffHours(hours)
+										}}>Clock out</button>
 									</div>
 								</div>
 							)

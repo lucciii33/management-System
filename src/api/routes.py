@@ -149,21 +149,15 @@ def get_staff_hours():
     return jsonify(all_staff_info), 200
 
 @api.route('/hours_system/<int:id>', methods=['PUT'])
-def edit_todos(id):
+def edit_staff_hours(id):
     body = request.get_json()
 
     staff_id = InAndOut.query.get(id)
     if staff_id is None:
         raise APIException('User not found', status_code=404)
 
-    if "person" in body:
-        staff_id.person = body["person"]
     if "clock_in" in body:
         staff_id.clock_in = body["clock_in"]
-    if "clock_in" in body:
-        staff_id.start_time = body["start_time"]
-    if "clock_in" in body:
-        staff_id.end_time = body["end_time"]
         db.session.commit()
 
     staff_query = InAndOut.query.all()
