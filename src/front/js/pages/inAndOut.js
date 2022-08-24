@@ -24,7 +24,7 @@ export const InAndOut = props => {
 		actions.getStaffHours();
 	}, [])
 	useEffect(() => {
-		setStaffHours({ person_id: staffMember?.id, clock_in: true, start_time: new Date(), name: staffMember?.full_name });
+		setStaffHours({ person_id: staffMember?.id, clock_in: true, start_time: new Date(), name: staffMember?.full_name, end_time: new Date() });
 	}, [staffMember])
 
 	useEffect(() => {
@@ -35,7 +35,7 @@ export const InAndOut = props => {
 	});
 
 	useEffect(() => {
-		actions.createStaffHours(staffHours?.person_id, staffHours?.clock_in, staffHours?.start_time, staffHours?.name)
+		actions.createStaffHours(staffHours?.person_id, staffHours?.clock_in, staffHours?.start_time, staffHours?.name, staffHours?.end_time)
 	}, [staffHours])
 
 	return (
@@ -80,13 +80,13 @@ export const InAndOut = props => {
 									<div className="box-clock d-flex">
 										<div className="m-3">
 											<p>{person.name}</p>
-											<p>{person.start_time}</p>
+											<p>{person.end_time}</p>
 											<p>{person.person_id}</p>
 										</div>
 										<div>
-											<button className="btn btn-danger m-3" onClick={() => {
+											<button className="btn btn-success m-3" onClick={() => {
 												actions.editStaffHours(person)
-											}}>Clock out</button>
+											}}>Clock in</button>
 										</div>
 									</div>
 								)

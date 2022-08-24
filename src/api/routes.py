@@ -130,7 +130,7 @@ def get_staff_info():
 def post_staff_hours():
     body = request.get_json()
     #explication about body
-    system = InAndOut(person_id = body['person_id'], clock_in=body["clock_in"], start_time= body['start_time'], name=body["name"])
+    system = InAndOut(person_id = body['person_id'], clock_in=body["clock_in"], start_time= body['start_time'],end_time=body["end_time"], name=body["name"])
     db.session.add(system)
     db.session.commit()
     staff_query = InAndOut.query.all()
@@ -159,6 +159,8 @@ def edit_staff_hours(id):
 
     if "clock_in" in body:
         staff_id.clock_in = body["clock_in"]
+    if "end_time" in body:
+        staff_id.end_time = body["end_time"]
         db.session.commit()
 
     staff_query = InAndOut.query.all()
