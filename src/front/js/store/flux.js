@@ -125,7 +125,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			editStaffHours: (data) => {
 				data.clock_in = !data.clock_in;
-				console.log(data);
+				data.end_time = new Date()
 				fetch(
 					`${process.env.BACKEND_URL}/api/hours_system/${data.id}`,
 					{
