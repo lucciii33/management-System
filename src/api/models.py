@@ -102,29 +102,58 @@ class InAndOut(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Restaurant_table(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    dish_name = db.Column(db.String(200), unique=False, nullable=True)
-    price = db.Column(db.Integer, unique=False, nullable=True)
-    start_ticket_time = db.Column(db.DateTime(timezone=True) )
-    end_ticket_time = db.Column(db.DateTime(timezone=True))
-    table_time = db.Column(db.DateTime(timezone=True))
-    table_number =  db.Column(db.Integer, unique=False, nullable=True)
-    important_changes = db.Column(db.String(200), unique=False, nullable=True)
+######## restaurant system ####################################
 
-    # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
+
+# order_item = db.Table('order_item',
+#     db.Column('order_id', db.Integer, db.ForeignKey('order.id'), primary_key=True),
+#     db.Column('item_id', db.Integer, db.ForeignKey('item.id'), primary_key=True)
+# )
+
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True, nullable=False)
+    description = db.Column(db.String(2000))
+    price = db.Column(db.Integer, unique=False, nullable=True)
+
 
     def __repr__(self):
-        return f'<Restaurant_table {self.dish_name}>'
+        return '<Item %r>' % self.name
+
+    def serialize(self):
+       return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "price": self.price
+        }
+
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    dish_name = db.Column(db.String(200), unique=False, nullable=True)
+    # items = db.relationship('Item',backref='recordowner')
+    status = db.Column(db.String(200), unique=False, nullable=True)
+    item = db.Column(db.Integer, db.ForeignKey('item.id'))
+    total_price = db.Column(db.Integer, unique=False, nullable=True)
+    start_ticket_time = db.Column(db.DateTime(timezone=True) )
+    end_ticket_time = db.Column(db.DateTime(timezone=True))
+    table_time_start = db.Column(db.DateTime(timezone=True))
+    table_time_end = db.Column(db.DateTime(timezone=True))
+    table_number =  db.Column(db.Integer, unique=False, nullable=False)
+    important_changes = db.Column(db.String(200), unique=False, nullable=True)
+
+    def __repr__(self):
+        return '<Order %r>' % self.table
 
     def serialize(self):
         return {
-            "dish_name": self.dish_name,
-            "price": self.price,
+            "id": self.id,
+            "items": list(map(lambda x: x.name, self.items)),
             "start_ticket_time": self.start_ticket_time,
             "end_ticket_time": self.end_ticket_time,
             "table_time": self.table_time,
             "table_number":self.table_number,
+            "total_price": self.total_price,
             "important_changes": self.important_changes
-            # do not serialize the password, its a security breach
         }
+

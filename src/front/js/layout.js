@@ -9,6 +9,7 @@ import injectContext from "./store/appContext";
 import { Calendary } from "./pages/calendar";
 import { ClockTask } from "./pages/clocktask";
 import { InAndOut } from "./pages/inAndOut";
+import { GetDishes } from "./pages/getDishes";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -30,6 +31,7 @@ const Layout = () => {
                         <Route element={<Calendary />} path="/calendar" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<InAndOut />} path="/inAndOut" />
+                        <Route element={<GetDishes />} path="/getDishes" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     {/* <Footer /> */}

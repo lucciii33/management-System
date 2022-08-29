@@ -5,7 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: {},
 			newEvent: [],
 			staff: [],
-			staffHours: []
+			staffHours: [],
+			dishes: []
 		},
 		actions: {
 			createTask: (data, made_by) => {
@@ -137,9 +138,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(res => res.json())
 					.then(info => setStore({ staffHours: info }))
 					.catch((error) => console.log(error))
-			}
+			},
 			//here the hours system for the user
 
+			//here the rest software
+
+			getDishes: async () => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/rest_system`);
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ dishes: data })
+						console.log(data)
+					}
+				} catch (error) {
+					throw Error(error);
+				}
+			},
 
 
 

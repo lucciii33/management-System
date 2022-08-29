@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Project, Calendar, Staff, InAndOut
+from api.models import db, User, Project, Calendar, Staff, InAndOut, Item
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -167,3 +167,28 @@ def edit_staff_hours(id):
     all_staff = list(map(lambda x: x.serialize(), staff_query))
 
     return jsonify(all_staff), 200
+
+###3 here start restaurant software 
+
+@api.route('/rest_system', methods=['GET'])
+def get_dishes():
+    dish_info_query = Item.query.all()
+    dishes_info = list(map(lambda x: x.serialize(), dish_info_query))
+    response_body = {
+        "msg": "Hello, here is your staff "
+    }
+
+    return jsonify(dishes_info), 200
+
+@api.route('/rest_system', methods=['POST'])
+def post_dishes():
+    body = request.get_json()
+    #explication about body
+    dish = Item(name = body['name'], description=body["description"], price= body['price'])
+    db.session.add(dish)
+    db.session.commit()
+    dish_query = Item.query.all()
+    all_dishes = list(map(lambda x: x.serialize(), dish_query))
+
+
+    return jsonify(all_dishes), 200
