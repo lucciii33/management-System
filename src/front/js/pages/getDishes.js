@@ -13,12 +13,21 @@ export const GetDishes = (data) => {
 
     return (
         <div className="container">
-            working
+            <div>
+
+                <h2>Add new dishe</h2>
+                <input />
+                <button>add here</button>
+            </div>
+
+
+
+
             {store.dishes.map((item) => {
                 return (
                     <div className="btn btn-primary">
-                        <p>{item.name}</p>
-                        <p>{item.price}</p>
+                        <p className="m-2">{item.name}</p>
+                        <p className="m-2">{item.price}</p>
                     </div>
                 )
             })}
