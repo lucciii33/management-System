@@ -101,3 +101,30 @@ class InAndOut(db.Model):
             "end_time": self.end_time,
             # do not serialize the password, its a security breach
         }
+
+class Restaurant_table(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    dish_name = db.Column(db.String(200), unique=False, nullable=True)
+    price = db.Column(db.Integer, unique=False, nullable=True)
+    start_ticket_time = db.Column(db.DateTime(timezone=True) )
+    end_ticket_time = db.Column(db.DateTime(timezone=True))
+    table_time = db.Column(db.DateTime(timezone=True))
+    table_number =  db.Column(db.Integer, unique=False, nullable=True)
+    important_changes = db.Column(db.String(200), unique=False, nullable=True)
+
+    # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
+
+    def __repr__(self):
+        return f'<Restaurant_table {self.dish_name}>'
+
+    def serialize(self):
+        return {
+            "dish_name": self.dish_name,
+            "price": self.price,
+            "start_ticket_time": self.start_ticket_time,
+            "end_ticket_time": self.end_ticket_time,
+            "table_time": self.table_time,
+            "table_number":self.table_number,
+            "important_changes": self.important_changes
+            # do not serialize the password, its a security breach
+        }

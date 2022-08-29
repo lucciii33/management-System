@@ -1,6 +1,6 @@
 
 import click
-from api.models import db, User,Project,Calendar,Staff, InAndOut
+from api.models import db, User,Project,Calendar,Staff, InAndOut, Restaurant_table
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
