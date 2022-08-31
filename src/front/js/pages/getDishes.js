@@ -7,8 +7,11 @@ import { Context } from "../store/appContext";
 
 export const GetDishes = (data) => {
     const { store, actions } = useContext(Context);
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState({ name: "", price: "", description: "" });
 
+    const handleInput = (e) => {
+        setInputValue({ ...inputValue, [e.target.name]: e.target.value });
+    }
 
 
     return (
@@ -16,8 +19,10 @@ export const GetDishes = (data) => {
             <div>
 
                 <h2>Add new dishe</h2>
-                <input />
-                <button>add here</button>
+                <input onChange={handleInput} name="name" value={inputValue.name} />
+                <input onChange={handleInput} name="price" value={inputValue.price} />
+                <input onChange={handleInput} name="description" value={inputValue.description} />
+                <button onClick={() => actions.createDishes(inputValue.name, inputValue.price, inputValue.description)}>add</button>
             </div>
 
 

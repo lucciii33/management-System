@@ -105,10 +105,10 @@ class InAndOut(db.Model):
 ######## restaurant system ####################################
 
 
-# order_item = db.Table('order_item',
-#     db.Column('order_id', db.Integer, db.ForeignKey('order.id'), primary_key=True),
-#     db.Column('item_id', db.Integer, db.ForeignKey('item.id'), primary_key=True)
-# )
+order_item = db.Table('order_item',
+    db.Column('order_id', db.Integer, db.ForeignKey('order.id'), primary_key=True),
+    db.Column('item_id', db.Integer, db.ForeignKey('item.id'), primary_key=True)
+)
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -130,10 +130,8 @@ class Item(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    dish_name = db.Column(db.String(200), unique=False, nullable=True)
-    # items = db.relationship('Item',backref='recordowner')
+    items = db.relationship('Item', secondary=order_item, lazy='subquery', backref=db.backref('orders', lazy=True))
     status = db.Column(db.String(200), unique=False, nullable=True)
-    item = db.Column(db.Integer, db.ForeignKey('item.id'))
     total_price = db.Column(db.Integer, unique=False, nullable=True)
     start_ticket_time = db.Column(db.DateTime(timezone=True) )
     end_ticket_time = db.Column(db.DateTime(timezone=True))
@@ -143,12 +141,12 @@ class Order(db.Model):
     important_changes = db.Column(db.String(200), unique=False, nullable=True)
 
     def __repr__(self):
-        return '<Order %r>' % self.table
+        return '<Order %r>' % self.id
 
     def serialize(self):
         return {
             "id": self.id,
-            "items": list(map(lambda x: x.name, self.items)),
+            "items": list(map(lambda item: item, self.items)),
             "start_ticket_time": self.start_ticket_time,
             "end_ticket_time": self.end_ticket_time,
             "table_time": self.table_time,

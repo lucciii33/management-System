@@ -2,8 +2,9 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Project, Calendar, Staff, InAndOut, Item
+from api.models import db, User, Project, Calendar, Staff, InAndOut, Item, Order
 from api.utils import generate_sitemap, APIException
+import datetime
 
 api = Blueprint('api', __name__)
 
@@ -192,3 +193,26 @@ def post_dishes():
 
 
     return jsonify(all_dishes), 200
+
+
+
+
+#####here is the order creation
+
+@api.route('/order_system', methods=['POST'])
+def post_orders():
+    body = request.get_json()
+    data = body["data"]
+    price = 0
+    items = data["items"]
+    for item in items:
+        price += item["price"]
+    print(price)    
+    order = Order(items = data['items'], status="pending", total_price=price, start_ticket_time=datetime.datetime.now(), important_changes=data["important_changes"], table_number=data['table_number'],)
+    db.session.add(order)
+    db.session.commit()
+    order_query = Order.query.all()
+    all_orders = list(map(lambda x: x.serialize(), order_query))
+
+
+    return jsonify(all_orders), 200

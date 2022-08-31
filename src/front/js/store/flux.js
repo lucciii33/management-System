@@ -6,7 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			newEvent: [],
 			staff: [],
 			staffHours: [],
-			dishes: []
+			dishes: [],
+			order: []
 		},
 		actions: {
 			createTask: (data, made_by) => {
@@ -155,6 +156,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw Error(error);
 				}
 			},
+
+			createDishes: (name, price, description,) => {
+				fetch(`${process.env.BACKEND_URL}/api/rest_system`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						name, price, description
+					})
+				})
+					.then(res => res.json())
+					.then(info => setStore({ dishes: info }))
+					.catch((error) => console.log(error))
+			},
+
+			createOrder: (data) => {
+				fetch(`${process.env.BACKEND_URL}/api/order_system`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						data
+					})
+				})
+					.then(res => res.json())
+					.then(info => setStore({ order: info }))
+					.catch((error) => console.log(error))
+			},
+
 
 
 
