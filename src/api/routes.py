@@ -2,9 +2,9 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Project, Calendar, Staff, InAndOut, Item, Order
+from api.models import db, User, Project, Calendar, Staff, InAndOut, Item, Order, order_item
 from api.utils import generate_sitemap, APIException
-import datetime
+from datetime import datetime
 
 api = Blueprint('api', __name__)
 
@@ -203,16 +203,27 @@ def post_dishes():
 def post_orders():
     body = request.get_json()
     data = body["data"]
+    print("data from the front end ",data)
     price = 0
     items = data["items"]
     for item in items:
         price += item["price"]
     print(price)    
-    order = Order(items = data['items'], status="pending", total_price=price, start_ticket_time=datetime.datetime.now(), important_changes=data["important_changes"], table_number=data['table_number'],)
+    order = Order( status="pending", total_price=price, start_ticket_time=datetime.now(), important_changes=data["important_changes"], table_number=data['table_number'],)
+    print("order before commit: ", order)
     db.session.add(order)
     db.session.commit()
+    order=Order.query.filter_by(start_ticket_time=order.start_ticket_time).first()
+    print( "order after ", order)
+    for item in items:
+        new_item=order_item(order_id=order.id, item_id=item.id)
+        db.session.add(new_item)
+        db.session.commit()
+
     order_query = Order.query.all()
-    all_orders = list(map(lambda x: x.serialize(), order_query))
+    print("all_orders: " ,order_query)
+    # all_orders = list(map(lambda x: x.serialize(), order_query))
 
 
-    return jsonify(all_orders), 200
+    # return jsonify(all_orders), 200
+    return "success",200
