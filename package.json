@@ -73,6 +73,8 @@
 		]
 	},
 	"dependencies": {
+		"@fullcalendar/daygrid": "^5.11.3",
+		"@fullcalendar/react": "^5.11.2",
 		"add": "^2.0.6",
 		"date-fns": "^2.29.1",
 		"or": "^0.2.0",
@@ -81,6 +83,7 @@
 		"react-big-calendar": "^1.5.0",
 		"react-calendar": "^3.7.0",
 		"react-datepicker": "^4.8.0",
+		"react-datetime": "^3.1.1",
 		"react-dom": "^16.8.4",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
