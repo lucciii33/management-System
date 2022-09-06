@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { Context } from "../store/appContext";
 import Modal from 'react-modal';
 import Datetime from 'react-datetime';
-import FullCalendar from '@fullcalendar/react' // must go before plugins
+import FullCalendar, { hasBgRendering } from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import { ModalCalendar } from "../component/modalCalendar"
 
@@ -12,13 +12,12 @@ Modal.setAppElement('#app');
 export const NewCalendar = () => {
     const { store, actions } = useContext(Context);
     const [modalOpen, setOpenModal] = useState(false)
-    const calendarRef = useRef("")
+    const calendarRef = useRef(null)
     const onEventAdded = (event) => {
         let calendarApi = calendarRef.current.getApi();
         calendarApi.addEvent(event);
         console.log(event)
     }
-
     return (
 
         <section className="m-4 mt-5">
@@ -30,7 +29,9 @@ export const NewCalendar = () => {
                     ref={calendarRef}
                     plugins={[dayGridPlugin]}
                     initialView="dayGridMonth"
+                // eventAdd={event => handelEventAdd}
                 />
+
             </div>
 
             <ModalCalendar isOpen={modalOpen} onClose={() => setOpenModal(false)} onEventAdded={(event) => onEventAdded(event)} />

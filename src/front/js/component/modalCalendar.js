@@ -13,8 +13,8 @@ export const ModalCalendar = ({ isOpen, onClose, onEventAdded }) => {
     const [start, setStart] = useState(new Date());
     const [end, setEnd] = useState(new Date());
 
-    function onSubmit(e) {
-        e.preventDefault();
+    function onSubmit(event) {
+        event.preventDefault();
         onEventAdded({
             title,
             start,
@@ -29,7 +29,7 @@ export const ModalCalendar = ({ isOpen, onClose, onEventAdded }) => {
             <Modal isOpen={isOpen} onRequestClose={onClose} >
 
                 <form onSubmit={onSubmit}>
-                    <input placeholder="title" value={title} onChange={e => setTitle(e.target.value)}></input>
+                    <input placeholder="title" value={title} onChange={event => setTitle(event.target.value)}></input>
                     <div>
                         <label>Start</label>
                         <Datetime value={start} onChange={date => setStart(date)} />
@@ -39,7 +39,7 @@ export const ModalCalendar = ({ isOpen, onClose, onEventAdded }) => {
                         <Datetime value={end} onChange={date => setEnd(date)} />
                     </div>
 
-                    <button type="submit">Add Event</button>
+                    <button>Add Event</button>
                 </form>
             </Modal>
 
