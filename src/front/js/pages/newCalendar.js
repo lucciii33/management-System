@@ -1,38 +1,39 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
-import format from "date-fns/format";
-import getDay from "date-fns/getDay";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import TimePicker from 'react-time-picker';
-import enUS from 'date-fns/locale/en-US'
+import Modal from 'react-modal';
+import Datetime from 'react-datetime';
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import { ModalCalendar } from "../component/modalCalendar"
+
+Modal.setAppElement('#app');
 
 
-
-
-export const NewCalendary = () => {
+export const NewCalendar = () => {
     const { store, actions } = useContext(Context);
-    const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "", time: "" });
-    const [allEvents, setAllEvents] = useState(store.newEvent);
-
-    function handleAddEvent() {
-        let newDate = new Date()
-        let obj = { title: newEvent.title, start: newDate, end: newEvent.end, time: newEvent.time }
-        setAllEvents([...allEvents, obj]);
+    const [modalOpen, setOpenModal] = useState(false)
+    const calendarRef = useRef("")
+    const onEventAdded = (event) => {
+        let calendarApi = calendarRef.current.getApi();
+        calendarApi.addEvent(event);
+        console.log(event)
     }
-    console.log(newEvent.start, newEvent.end)
 
     return (
 
-        <div className="m-4 mt-5">
-            <h2>Add New Event</h2>
+        <section className="m-4 mt-5">
+            <button onClick={() => setOpenModal(true)}>Add New Event</button>
+            <div>
+            </div>
+            <div style={{ position: 'relative', zIndex: 0 }}>
+                <FullCalendar
+                    ref={calendarRef}
+                    plugins={[dayGridPlugin]}
+                    initialView="dayGridMonth"
+                />
+            </div>
 
-        </div>
+            <ModalCalendar isOpen={modalOpen} onClose={() => setOpenModal(false)} onEventAdded={(event) => onEventAdded(event)} />
+        </section>
     );
 };
