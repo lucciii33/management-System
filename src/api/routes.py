@@ -203,27 +203,31 @@ def post_dishes():
 def post_orders():
     body = request.get_json()
     data = body["data"]
-    print("data from the front end ",data)
     price = 0
     items = data["items"]
+
     for item in items:
-        price += item["price"]
-    print(price)    
-    order = Order( status="pending", total_price=price, start_ticket_time=datetime.now(), important_changes=data["important_changes"], table_number=data['table_number'],)
-    print("order before commit: ", order)
+
+        price += item["price"]   
+    order = Order(status="pending", total_price=price, start_ticket_time=datetime.now(), important_changes=data["important_changes"], table_number=data['table_number'],)
+
+    for item in items:
+
+        query = Item.query.filter_by(id = item["id"]).first()
+        query.orders.append(order)
+
     db.session.add(order)
     db.session.commit()
-    order=Order.query.filter_by(start_ticket_time=order.start_ticket_time).first()
-    print( "order after ", order)
-    for item in items:
-        new_item=order_item(order_id=order.id, item_id=item.id)
-        db.session.add(new_item)
-        db.session.commit()
 
-    order_query = Order.query.all()
-    print("all_orders: " ,order_query)
-    # all_orders = list(map(lambda x: x.serialize(), order_query))
-
-
-    # return jsonify(all_orders), 200
     return "success",200
+
+
+@api.route('/get_orders', methods=['GET'])
+def get_orders():
+    order_info_query = Order.query.all()
+    order_info = list(map(lambda x: x.serialize(), order_info_query))
+    response_body = {
+        "msg": "Hello, here is your staff "
+    }
+
+    return jsonify(order_info), 200
