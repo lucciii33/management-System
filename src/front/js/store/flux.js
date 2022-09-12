@@ -183,6 +183,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch((error) => console.log(error))
 			},
 
+			getOrders: async () => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/get_orders`);
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ order: data })
+						console.log(data)
+					}
+				} catch (error) {
+					throw Error(error);
+				}
+			},
+
 
 
 

@@ -12,6 +12,7 @@ import { InAndOut } from "./pages/inAndOut";
 import { GetDishes } from "./pages/getDishes";
 import { ServerView } from "./pages/serverView";
 import { NewCalendar } from "./pages/newCalendar";
+import { KitchenOrders } from "./pages/kitchenOrders";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -31,6 +32,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Chart />} path="/chart" />
                         <Route element={<NewCalendar />} path="/newCalendar" />
+                        <Route element={<KitchenOrders />} path="/kitchenOrders" />
                         <Route element={<Calendary />} path="/calendar" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<InAndOut />} path="/inAndOut" />
