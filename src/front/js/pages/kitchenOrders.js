@@ -28,8 +28,8 @@ export const KitchenOrders = (data) => {
                                 <h2 className="m-2">table number:{item.table_number}</h2>
                                 <p className="m-2">Important changes{item.important_changes}</p>
 
-                                {item.items.map(() => {
-                                    <h4>{food.name}</h4>
+                                {item.items.map((food) => {
+                                    return (<h4>{food.name}</h4>)
                                 })}
 
                             </div>
