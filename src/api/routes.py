@@ -231,3 +231,22 @@ def get_orders():
     }
 
     return jsonify(order_info), 200
+
+
+
+@api.route('/task/<int:id>', methods=['PUT'])
+def edit_orders(id):
+    body = request.get_json()
+
+    order = Order.query.filter_by(id=id).one_or_none()
+    if order is None:
+        raise APIException('task not found', status_code=404)
+
+    if "status" in body:
+        order.status = body["status"]
+        db.session.commit()
+
+    order_query = Order.query.all()
+    all_orders = list(map(lambda x: x.serialize(),  order_query))
+
+    return jsonify(all_orders), 200

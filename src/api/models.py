@@ -149,7 +149,7 @@ class Order(db.Model):
             "items": list(map(lambda item: item.serialize(), self.items)),
             "start_ticket_time": self.start_ticket_time,
             "end_ticket_time": self.end_ticket_time,
-            # "table_time": self.table_time,
+            "status": self.status,
             "table_number":self.table_number,
             "total_price": self.total_price,
             "important_changes": self.important_changes

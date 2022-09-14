@@ -84,3 +84,23 @@
   margin-top: 10px;
   border: none;
 }
+//////////////////////// rest ///////////////////////
+.box-pending {
+  background-color: #eb1d36;
+  border-radius: 10px;
+  margin: 15px;
+  box-shadow: 10px 10px 5px #b5b5b5;
+}
+
+.inProgressOrder {
+  background-color: #ff7f50;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.orderDone {
+  background-color: #90ee90;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}

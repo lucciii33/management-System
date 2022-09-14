@@ -144,17 +144,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			//here the rest software
 
-			getDishes: async () => {
-				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/rest_system`);
-					if (response.ok) {
-						const data = await response.json();
-						setStore({ dishes: data })
+			// getDishes: async () => {
+			// 	try {
+			// 		const response = await fetch(`${process.env.BACKEND_URL}/api/rest_system`);
+			// 		if (response.ok) {
+			// 			const data = await response.json();
+			// 			setStore({ dishes: data })
+			// 			console.log(data)
+			// 		}
+			// 	} catch (error) {
+			// 		throw Error(error);
+			// 	}
+			// },
+
+			getDishesTest: () => {
+				fetch(`${process.env.BACKEND_URL}/api/rest_system`, {
+				})
+					.then(response => {
+						return response.json();
+					})
+					.then(data => {
 						console.log(data)
-					}
-				} catch (error) {
-					throw Error(error);
-				}
+						return setStore({ dishes: data })
+					})
+					.catch(err => {
+						console.error(err);
+					});
 			},
 
 			createDishes: (name, price, description,) => {
