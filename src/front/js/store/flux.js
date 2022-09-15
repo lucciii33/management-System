@@ -211,6 +211,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			editOrderStatus: (status, id) => {
+				fetch(
+					`${process.env.BACKEND_URL}/api/order_system/${id}`,
+					{
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							status: status
+						}),
+					}
+				)
+					.then(res => res.json())
+					.then(info => setStore({ order: info }))
+					.catch((error) => console.log(error))
+			},
+
 
 
 

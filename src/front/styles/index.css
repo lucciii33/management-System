@@ -7,3 +7,22 @@
   margin: 15px;
   box-shadow: 10px 10px 5px #b5b5b5;
 }
+.box-pending {
+  background-color: #ff7f50;
+  border-radius: 10px;
+  margin: 15px;
+  box-shadow: 10px 10px 5px #b5b5b5;
+}
+
+.box-done {
+  background-color: #90ee90;
+  border-radius: 10px;
+  margin: 15px;
+  box-shadow: 10px 10px 5px #b5b5b5;
+}
+.box-InProgress {
+  background-color: #f08080;
+  border-radius: 10px;
+  margin: 15px;
+  box-shadow: 10px 10px 5px #b5b5b5;
+}

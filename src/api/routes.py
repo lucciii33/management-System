@@ -234,7 +234,7 @@ def get_orders():
 
 
 
-@api.route('/task/<int:id>', methods=['PUT'])
+@api.route('/order_system/<int:id>', methods=['PUT'])
 def edit_orders(id):
     body = request.get_json()
 
@@ -245,6 +245,7 @@ def edit_orders(id):
     if "status" in body:
         order.status = body["status"]
         db.session.commit()
+        print(body)
 
     order_query = Order.query.all()
     all_orders = list(map(lambda x: x.serialize(),  order_query))

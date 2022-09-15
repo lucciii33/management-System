@@ -7,6 +7,7 @@ import { Context } from "../store/appContext";
 
 export const KitchenOrders = (data) => {
     const { store, actions } = useContext(Context);
+    // const [status, setStatus] = useState({ status: "in progress" });
 
     useEffect(() => {
         actions.getOrders();
@@ -23,7 +24,7 @@ export const KitchenOrders = (data) => {
                     // console.log(item.items)
                     return (
                         <div className="col-12 col-md-6 col-lg-4">
-                            <div className={item.status = "pending" ? "box-pending" : "box-todo"}>
+                            <div className={item.status === "Done" ? "box-done" : item.status === "in progress" ? "box-InProgress" : item.status === "pending" ? "box-pending" : "box-pending"}>
 
                                 <h2 className="m-2">table number:{item.table_number}</h2>
                                 <h6>start Order: {item.start_ticket_time}</h6>
@@ -33,8 +34,8 @@ export const KitchenOrders = (data) => {
                                 })}
                                 <p className="m-2">Important changes: {item.important_changes}</p>
                                 <div className="d-flex ">
-                                    <div className="inProgressOrder m-1"><i className="fas fa-spinner"></i></div>
-                                    <div className="orderDone m-1"><i className="far fa-check-circle" /></div>
+                                    <button className="inProgressOrder m-1" onClick={() => actions.editOrderStatus("inProgress", item.id)}><i className="fas fa-spinner"></i></button>
+                                    <button className="orderDone m-1" onClick={() => actions.editOrderStatus("Done", item.id)}><i className="far fa-check-circle" /></button>
                                 </div>
                             </div>
                         </div>
