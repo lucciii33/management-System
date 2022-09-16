@@ -13,7 +13,7 @@ import { GetDishes } from "./pages/getDishes";
 import { ServerView } from "./pages/serverView";
 import { NewCalendar } from "./pages/newCalendar";
 import { KitchenOrders } from "./pages/kitchenOrders";
-import { SpreadSheet } from "./pages/spreadsheet";
+import { NewChart } from "./pages/newChart";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -36,7 +36,7 @@ const Layout = () => {
                         <Route element={<KitchenOrders />} path="/kitchenOrders" />
                         <Route element={<Calendary />} path="/calendar" />
                         <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<SpreadSheet />} path="/spreadsheet" />
+                        <Route element={<NewChart />} path="/newChart" />
                         <Route element={<InAndOut />} path="/inAndOut" />
                         <Route element={<GetDishes />} path="/getDishes" />
                         <Route element={<ServerView />} path="/serverView" />
