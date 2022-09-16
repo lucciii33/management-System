@@ -39,10 +39,16 @@ export const ServerView = (data) => {
 
     return (
         <div className="container">
-            <label>Table Number</label>
-            <input onChange={handleInput} name="table_number" value={inputValue.table_number}></input>
-            <label>changes</label>
-            <input onChange={handleInput} name="important_changes" value={inputValue.important_changes}></input>
+            <div className="m-3">
+                <label className="me-2">Table Number</label>
+                <input onChange={handleInput} name="table_number" value={inputValue.table_number}></input>
+            </div>
+
+            <div className="m-3">
+                <label className="me-2">Changes</label>
+                <input onChange={handleInput} name="important_changes" value={inputValue.important_changes}></input>
+            </div>
+
             <div className="row">
                 {store.dishes.map((item) => {
                     return (
@@ -51,6 +57,7 @@ export const ServerView = (data) => {
                                 <div className="btn btn-primary" onClick={() => handleOrder(item)}>
                                     <p className="m-2">{item.name}</p>
                                     <p className="m-2">{item.price}</p>
+                                    <p className="m-2">{item.description}</p>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +73,12 @@ export const ServerView = (data) => {
                 })}
                 </ul>
             </div>
-            <button onClick={() => actions.createOrder(inputValue)}>send back end</button>
+            <button className="btn btn-success m-2" onClick={() => actions.createOrder(inputValue)}>send To kitchen</button>
+
+            <div>
+                <Link to="/kitchenOrders"> <button className="btn btn-success m-2">see kithcen progress</button></Link>
+            </div>
+
         </div>
     );
 };

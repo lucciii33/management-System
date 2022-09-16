@@ -19,16 +19,11 @@ export const KitchenOrders = (data) => {
             <h3>Orders</h3>
             <div className="row">
                 {store.order.map((item) => {
-                    console.log(item)
-                    console.log(item.items)
-                    // console.log(item.items)
                     return (
                         <div className="col-12 col-md-6 col-lg-4">
                             <div className={item.status === "Done" ? "box-done" : item.status === "in progress" ? "box-InProgress" : item.status === "pending" ? "box-pending" : "box-pending"}>
-
                                 <h2 className="m-2">table number:{item.table_number}</h2>
                                 <h6>start Order: {item.start_ticket_time}</h6>
-
                                 {item.items.map((food) => {
                                     return (<h4>{food.name}</h4>)
                                 })}
