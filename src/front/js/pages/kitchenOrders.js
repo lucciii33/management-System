@@ -32,7 +32,8 @@ export const KitchenOrders = (data) => {
                                 {item.items.map((food) => {
                                     return (<h4>{food.name}</h4>)
                                 })}
-                                <p className="m-2">Important changes: {item.important_changes}</p>
+                                <p className="m-2">Important changes: {item.important_changes}</p>\
+                                <h4>total price of the ticket: {item.total_price}</h4>
                                 <div className="d-flex ">
                                     <button className="inProgressOrder m-1" onClick={() => actions.editOrderStatus("inProgress", item.id)}><i className="fas fa-spinner"></i></button>
                                     <button className="orderDone m-1" onClick={() => actions.editOrderStatus("Done", item.id)}><i className="far fa-check-circle" /></button>
