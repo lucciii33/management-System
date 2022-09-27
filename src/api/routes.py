@@ -21,6 +21,20 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+@api.route("/login", methods=["POST"])
+def login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    if email != "test" or password != "test":
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
+
+
+
+
+
 @api.route('/task', methods=['GET'])
 def get_tasks():
 
