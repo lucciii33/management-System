@@ -12,6 +12,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			/////login/////
+			syncTokenFromSessionStorage: () => {
+				const token = sessionStorage.getItem('token');
+				if (token && token != "" && token != undefined) {
+					setStore({ user: JSON.parse(token) });
+				}
+			},
+
 			loginToken: async (email, password) => {
 				console.log("function called")
 				const resp = await fetch(`${process.env.BACKEND_URL}/api/login`, {
@@ -31,11 +38,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await resp.json();
 				console.log("data", data)
 				// save your token in the sessionStorage
-				setStore({ user: data });
+				setStore({ user: data.access_token });
 				sessionStorage.setItem("jwt-token", data.access_token);
 				localStorage.setItem("jwt-token", data.access_token)
 				// console.log(loggId)
 				return data.access_token;
+
+			},
+
+			logout: () => {
+				sessionStorage.removeItem('token');
+				console.log("logout working")
+				setStore({ user: null });
 
 			},
 
