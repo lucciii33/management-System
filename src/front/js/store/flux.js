@@ -8,7 +8,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			staffHours: [],
 			dishes: [],
 			order: [],
-			user: []
 		},
 		actions: {
 			/////login/////
@@ -43,14 +42,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("jwt-token", data.access_token)
 				// console.log(loggId)
 				return data.access_token;
-
 			},
 
 			logout: () => {
 				sessionStorage.removeItem('token');
 				console.log("logout working")
 				setStore({ user: null });
-
 			},
 
 			//////login finish//////

@@ -25,7 +25,7 @@ export const Navbar = () => {
 						<button className="btn btn-light m-1">Restaurant sotfware</button>
 					</Link>
 					{store.user ?
-						(<button className="btn btn-light m-1" onClick={actions.logout()}>Log OUT</button>)
+						(<button className="btn btn-light m-1" onClick={() => actions.logout()}>Log OUT</button>)
 						:
 						(<Link to="/login">
 							<button className="btn btn-light m-1">Login</button>
