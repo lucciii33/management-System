@@ -18,6 +18,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			registerUser: async (email, password) => {
+				const resp = await fetch(`${process.env.BACKEND_URL}/api/register`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ email, password })
+				});
+
+				if (!resp.ok) throw "Problem with the response";
+
+				if (resp.status === 401) {
+					throw "Invalid credentials";
+				} else if (resp.status === 400) {
+					throw "Invalid email or password format";
+				}
+			},
+
+
 			loginToken: async (email, password) => {
 				console.log("function called")
 				const resp = await fetch(`${process.env.BACKEND_URL}/api/login`, {
@@ -129,7 +146,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			createStaffMember: (full_name) => {
 				fetch(`${process.env.BACKEND_URL}/api/staff_member`, {
 					method: "POST",
-					headers: { "Content-Type": "application/json" },
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${store.user?.access_token}`,
+					},
 					body: JSON.stringify({
 						full_name,
 					})
@@ -156,7 +176,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			createStaffHours: (person_id, clock_in, start_time, name, end_time) => {
 				fetch(`${process.env.BACKEND_URL}/api/hours_system`, {
 					method: "POST",
-					headers: { "Content-Type": "application/json" },
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${store.user?.access_token}`,
+					},
 					body: JSON.stringify({
 						person_id, clock_in, start_time, name, end_time
 					})

@@ -15,6 +15,7 @@ import { NewCalendar } from "./pages/newCalendar";
 import { KitchenOrders } from "./pages/kitchenOrders";
 import { NewChart } from "./pages/newChart";
 import { Login } from "./pages/login";
+import { Register } from "./pages/register";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -33,6 +34,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Chart />} path="/chart" />
+                        <Route element={<Register />} path="/register" />
                         <Route element={<NewCalendar />} path="/newCalendar" />
                         <Route element={<KitchenOrders />} path="/kitchenOrders" />
                         <Route element={<Calendary />} path="/calendar" />

@@ -21,17 +21,43 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+# @api.route("/login", methods=["POST"])
+# def login():
+#     email = request.json.get("email", None)
+#     password = request.json.get("password", None)
+#     if email != "test" or password != "test":
+#         return jsonify({"msg": "Bad username or password"}), 401
+
+#     access_token = create_access_token(identity=email)
+#     return jsonify(access_token=access_token)
+
+
 @api.route("/login", methods=["POST"])
-def login():
+def create_token_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
-    if email != "test" or password != "test":
+    user = User.query.filter_by(email=email, password=password ).first()
+
+
+    if user is None:
+        # the user was not found on the database
         return jsonify({"msg": "Bad username or password"}), 401
+    
+    print(user.id)
+    access_token = create_access_token(identity=user.id)
+    
+    return jsonify({'access_token':access_token, 'user': user.serialize()})
 
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
 
+@api.route('/register', methods=['POST'])
+def register_user():
+    body = request.json
 
+    user = User(email=body['email'], password=body['password'] )
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify({"message" : "your user has been registered"}), 200
 
 
 
@@ -120,7 +146,9 @@ def get_calendary_info():
 ##################################Start here in-out system######################################################
 
 @api.route('/staff_member', methods=['POST'])
+@jwt_required()
 def post_staff_member():
+    
     body = request.get_json()
     #explication about body
     staff_name = Staff(full_name= body['full_name'])
@@ -132,6 +160,7 @@ def post_staff_member():
     return jsonify(all_staff), 200
 
 @api.route('/staff_member', methods=['GET'])
+# @jwt_required()
 def get_staff_info():
     staff_info_query = Staff.query.all()
     all_staff_info = list(map(lambda x: x.serialize(), staff_info_query))
@@ -145,6 +174,7 @@ def get_staff_info():
 ##################################### hours system ################################
 
 @api.route('/hours_system', methods=['POST'])
+@jwt_required()
 def post_staff_hours():
     body = request.get_json()
     #explication about body
@@ -158,6 +188,7 @@ def post_staff_hours():
     return jsonify(all_staff), 200
 
 @api.route('/hours_system', methods=['GET'])
+@jwt_required()
 def get_staff_hours():
     staff_info_query = InAndOut.query.all()
     all_staff_info = list(map(lambda x: x.serialize(), staff_info_query))
@@ -168,6 +199,7 @@ def get_staff_hours():
     return jsonify(all_staff_info), 200
 
 @api.route('/hours_system/<int:id>', methods=['PUT'])
+@jwt_required()
 def edit_staff_hours(id):
     body = request.get_json()
 

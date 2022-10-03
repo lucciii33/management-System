@@ -16,10 +16,10 @@ export const Register = () => {
     return (
 
         <div className="m-4 mt-5">
-            <h1>Login</h1>
+            <h1>Register</h1>
             <input placeholder="email" type="text" name="email" value={formData.email} onChange={handleChange}></input>
             <input placeholder="password" type="password" name="password" value={formData.password} onChange={handleChange}></input>
-            <button onClick="">Login</button>
+            <button onClick={() => actions.registerUser(formData.email, formData.password)}>Register</button>
         </div>
     );
 };
