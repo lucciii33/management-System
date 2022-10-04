@@ -160,7 +160,7 @@ def post_staff_member():
     return jsonify(all_staff), 200
 
 @api.route('/staff_member', methods=['GET'])
-# @jwt_required()
+@jwt_required()
 def get_staff_info():
     staff_info_query = Staff.query.all()
     all_staff_info = list(map(lambda x: x.serialize(), staff_info_query))

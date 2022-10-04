@@ -131,8 +131,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			//here staff names//
 			getStaffMembers: async () => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/staff_member`);
+					const response = await fetch(`${process.env.BACKEND_URL}/api/staff_member`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${token}`,
+						}
+					},)
+						;
 					if (response.ok) {
 						const data = await response.json();
 						setStore({ staff: data })
@@ -144,11 +154,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			createStaffMember: (full_name) => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
 				fetch(`${process.env.BACKEND_URL}/api/staff_member`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						"Authorization": `Bearer ${store.user?.access_token}`,
+						"Authorization": `Bearer ${token}`,
 					},
 					body: JSON.stringify({
 						full_name,
@@ -161,8 +174,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			// here start the in-out system //
 			getStaffHours: async () => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/hours_system`);
+					const response = await fetch(`${process.env.BACKEND_URL}/api/hours_system`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${token}`,
+						}
+					},);
 					if (response.ok) {
 						const data = await response.json();
 						setStore({ staffHours: data })
@@ -174,11 +196,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			createStaffHours: (person_id, clock_in, start_time, name, end_time) => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
 				fetch(`${process.env.BACKEND_URL}/api/hours_system`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						"Authorization": `Bearer ${store.user?.access_token}`,
+						"Authorization": `Bearer ${token}`,
 					},
 					body: JSON.stringify({
 						person_id, clock_in, start_time, name, end_time
@@ -190,13 +215,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			editStaffHours: (data) => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
 				data.clock_in = !data.clock_in;
 				data.end_time = new Date()
 				fetch(
 					`${process.env.BACKEND_URL}/api/hours_system/${data.id}`,
 					{
 						method: "PUT",
-						headers: { "Content-Type": "application/json" },
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${token}`,
+						},
 						body: JSON.stringify(data),
 					}
 				)

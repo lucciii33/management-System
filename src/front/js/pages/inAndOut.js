@@ -12,6 +12,7 @@ export const InAndOut = props => {
 	const handleChange = e => {
 		setStaffMember({ [e.target.name]: e.target.value });
 	};
+	// console.log(store.staffHours)
 
 	const { store, actions } = useContext(Context);
 	const params = useParams();
