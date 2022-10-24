@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Project, Calendar, Staff, InAndOut, Item, Order, order_item
+from api.models import db, User, Project, Calendar, Staff, InAndOut, Item, Order, order_item, HoursTracker
 from api.utils import generate_sitemap, APIException
 from datetime import datetime
 from flask_jwt_extended import create_access_token
@@ -174,7 +174,7 @@ def get_staff_info():
 ##################################### hours system ################################
 
 @api.route('/hours_system', methods=['POST'])
-@jwt_required()
+# @jwt_required()
 def post_staff_hours():
     body = request.get_json()
     #explication about body
@@ -188,7 +188,7 @@ def post_staff_hours():
     return jsonify(all_staff), 200
 
 @api.route('/hours_system', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def get_staff_hours():
     staff_info_query = InAndOut.query.all()
     all_staff_info = list(map(lambda x: x.serialize(), staff_info_query))
@@ -199,7 +199,7 @@ def get_staff_hours():
     return jsonify(all_staff_info), 200
 
 @api.route('/hours_system/<int:id>', methods=['PUT'])
-@jwt_required()
+# @jwt_required()
 def edit_staff_hours(id):
     body = request.get_json()
 
@@ -209,8 +209,11 @@ def edit_staff_hours(id):
 
     if "clock_in" in body:
         staff_id.clock_in = body["clock_in"]
+    if "start_time" in body:
+        staff_id.start_time = body["start_time"]
     if "end_time" in body:
         staff_id.end_time = body["end_time"]
+        hours = HoursTracker(time_stamp = staff_id.id, start_time = staff_id.start_time, end_time = staff_id.end_time)
         db.session.commit()
 
     staff_query = InAndOut.query.all()

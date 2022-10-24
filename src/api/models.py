@@ -76,6 +76,26 @@ class Staff(db.Model):
             "id": self.id,
             # do not serialize the password, its a security breach
         }
+        
+class HoursTracker(db.Model):
+    
+    id = db.Column(db.Integer, primary_key=True)
+    # person_id = db.Column(db.Integer, db.ForeignKey('inandout.id'), nullable=False)
+    # time_stamp = db.relationship("InAndOut", backref="HoursTracker")
+    start_time = db.Column(db.DateTime(timezone=True) )
+    end_time = db.Column(db.DateTime(timezone=True) )
+    
+
+    def __repr__(self):
+        return f'<Staff {self. id }>'
+
+    def serialize(self):
+        return {
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "id": self.id,
+            # do not serialize the password, its a security breach
+        }
 
 class InAndOut(db.Model):
     id = db.Column(db.Integer, primary_key=True)
