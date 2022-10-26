@@ -187,6 +187,26 @@ def post_staff_hours():
 
     return jsonify(all_staff), 200
 
+#reporte hours system 
+@api.route('/hours_system/reporter', methods=['POST'])
+# @jwt_required()
+def reporter_staff_hours():
+    body = request.get_json()
+    
+    #explication about body
+    monthly_staff_hours = []
+    staff_query = InAndOut.query.all()
+    for x in staff_query:
+        person_hours = InAndOut.query.filter_by(person_id = x.id)
+        person_hours = person_hours.filter(lambda x:x, x.start_time.__contains__(body.year_month) == TRUE, person_hours)
+        monthly_staff_hours.append(person_hours)
+    print(monthly_staff_hours)
+        
+    # all_staff = list(map(lambda x: x.serialize(), staff_query))
+
+
+    return jsonify("working"), 200
+
 @api.route('/hours_system', methods=['GET'])
 @jwt_required()
 def get_staff_hours():
@@ -213,7 +233,7 @@ def edit_staff_hours(id):
         staff_id.start_time = body["start_time"]
     if "end_time" in body:
         staff_id.end_time = body["end_time"]
-        hours = HoursTracker(time_stamp = staff_id.id, start_time = staff_id.start_time, end_time = staff_id.end_time)
+        # hours = HoursTracker(time_stamp = staff_id.id, start_time = staff_id.start_time, end_time = staff_id.end_time)
         db.session.commit()
 
     staff_query = InAndOut.query.all()
