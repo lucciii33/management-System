@@ -174,7 +174,7 @@ def get_staff_info():
 ##################################### hours system ################################
 
 @api.route('/hours_system', methods=['POST'])
-# @jwt_required()
+@jwt_required()
 def post_staff_hours():
     body = request.get_json()
     #explication about body
@@ -188,7 +188,7 @@ def post_staff_hours():
     return jsonify(all_staff), 200
 
 @api.route('/hours_system', methods=['GET'])
-# @jwt_required()
+@jwt_required()
 def get_staff_hours():
     staff_info_query = InAndOut.query.all()
     all_staff_info = list(map(lambda x: x.serialize(), staff_info_query))
@@ -199,7 +199,7 @@ def get_staff_hours():
     return jsonify(all_staff_info), 200
 
 @api.route('/hours_system/<int:id>', methods=['PUT'])
-# @jwt_required()
+@jwt_required()
 def edit_staff_hours(id):
     body = request.get_json()
 
