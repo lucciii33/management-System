@@ -115,20 +115,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.catch((err) => console.log(err));
 			},
 
-			createCalendar: (description, start_time, end_time) => {
-				fetch(`${process.env.BACKEND_URL}goog/api/calendar`, {
+			createCalendar: (description, start_time, quantity, name, hour) => {
+				fetch(`${process.env.BACKEND_URL}/api/calendar`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						description,
 						start_time,
-						end_time
+						quantity,
+						name,
+						hour,
 					})
 				})
 					.then(res => res.json())
 					.then(info => setStore({ newEvent: info }))
 					.catch((error) => console.log(error))
 			},
+
+			getBookings: async () => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/calendar`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							// "Authorization": `Bearer ${token}`,
+						}
+					},)
+						;
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ newEvent: data })
+						console.log(data)
+					}
+				} catch (error) {
+					throw Error(error);
+				}
+			},
+
 			//here staff names//
 			getStaffMembers: async () => {
 				let store = getStore();

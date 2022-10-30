@@ -46,7 +46,10 @@ class Calendar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(200), unique=False, nullable=False)
     start_time = db.Column(db.DateTime(timezone=True) )
-    end_time = db.Column(db.DateTime(timezone=True))
+    # end_time = db.Column(db.DateTime(timezone=True))
+    quantity = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), unique=False, nullable=False)
+    hour = db.Column(db.String(200), unique=False, nullable=True)
     # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
     
 
@@ -58,7 +61,10 @@ class Calendar(db.Model):
             "description": self.description,
             "id": self.id,
             "start_time": self.start_time,
-            "end_time": self.end_time,
+            # "end_time": self.end_time,
+            "quantity": self.quantity,
+            "name": self.name,
+            "hour": self.hour,
             # do not serialize the password, its a security breach
         }
 

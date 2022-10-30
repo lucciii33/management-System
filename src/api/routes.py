@@ -123,7 +123,7 @@ def delete_tasks(id):
 def post_calendar():
     body = request.get_json()
     #explication about body
-    calendary = Calendar(description= body['description'], start_time= body['start_time'], end_time= body['end_time'])
+    calendary = Calendar(description= body['description'], start_time= body['start_time'], quantity= body['quantity'], name=body['name'], hour=body['hour'])
     db.session.add(calendary)
     db.session.commit()
     calendar_query = Calendar.query.all()
