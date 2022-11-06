@@ -39,25 +39,27 @@ export const ServerView = (data) => {
 
     return (
         <div className="container">
-            <div className="m-3">
-                <label className="me-2">Table Number</label>
-                <input onChange={handleInput} name="table_number" value={inputValue.table_number}></input>
-            </div>
+            <div className="bg-services">
+                <div className="m-3">
+                    <label className="me-2">Table Number</label>
+                    <input onChange={handleInput} name="table_number" value={inputValue.table_number} className="input-rest"></input>
+                </div>
 
-            <div className="m-3">
-                <label className="me-2">Changes</label>
-                <input onChange={handleInput} name="important_changes" value={inputValue.important_changes}></input>
+                <div className="m-3">
+                    <label className="me-2">Changes</label>
+                    <input onChange={handleInput} name="important_changes" value={inputValue.important_changes} className="input-rest"></input>
+                </div>
             </div>
 
             <div className="row">
                 {store.dishes.map((item) => {
                     return (
-                        <div className="col-12 col-md-6 col-lg-4">
+                        <div className="col-12 col-md-4 col-lg-4">
                             <div className="card">
                                 <div className="btn btn-primary" onClick={() => handleOrder(item)}>
                                     <p className="m-2">{item.name}</p>
                                     <p className="m-2">{item.price}</p>
-                                    <p className="m-2">{item.description}</p>
+                                    {/* <p className="m-2">{item.description}</p> */}
                                 </div>
                             </div>
                         </div>
