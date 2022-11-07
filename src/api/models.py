@@ -141,6 +141,7 @@ class Item(db.Model):
     name = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.String(2000))
     price = db.Column(db.Integer, unique=False, nullable=True)
+    item_type = db.Column(db.String(50), unique=False, nullable=False )
 
 
     def __repr__(self):
@@ -151,7 +152,8 @@ class Item(db.Model):
             "id": self.id,
             "name": self.name,
             "description": self.description,
-            "price": self.price
+            "price": self.price,
+            "item_type": self.item_type,
         }
 
 class Order(db.Model):

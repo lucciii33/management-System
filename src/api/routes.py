@@ -257,7 +257,7 @@ def get_dishes():
 def post_dishes():
     body = request.get_json()
     #explication about body
-    dish = Item(name = body['name'], description=body["description"], price= body['price'])
+    dish = Item(name = body['name'], description=body["description"], price= body['price'], item_type=body["item_type"])
     db.session.add(dish)
     db.session.commit()
     dish_query = Item.query.all()

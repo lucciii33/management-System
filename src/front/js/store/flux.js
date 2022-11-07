@@ -293,12 +293,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-			createDishes: (name, price, description,) => {
+			createDishes: (name, price, description, item_type) => {
 				fetch(`${process.env.BACKEND_URL}/api/rest_system`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						name, price, description
+						name, price, description, item_type
 					})
 				})
 					.then(res => res.json())
