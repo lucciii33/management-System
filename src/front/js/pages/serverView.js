@@ -56,7 +56,7 @@ export const ServerView = (data) => {
                     return (
                         <div className="col-12 col-md-4 col-lg-4">
                             <div className="card">
-                                <div className="btn btn-primary" onClick={() => handleOrder(item)}>
+                                <div className={item.item_type === "Drink" ? "btn btn-primary" : "btn btn-warning"} onClick={() => handleOrder(item)}>
                                     <p className="m-2">{item.name}</p>
                                     <p className="m-2">{item.price}</p>
                                     {/* <p className="m-2">{item.description}</p> */}
@@ -66,6 +66,8 @@ export const ServerView = (data) => {
                     )
                 })}
             </div>
+
+
 
             <div>
                 <ul> {inputValue.items.map((item) => {
