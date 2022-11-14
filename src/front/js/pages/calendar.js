@@ -59,6 +59,18 @@ export const Calendary = () => {
 
                 <h1>pick hours here</h1>
                 <div className="d-block">
+                    <label>12am</label>
+                    <input type="radio" value={"12"}
+                        checked={newEvent.hour === '12'}
+                        onChange={(e) => setNewEvent({ ...newEvent, hour: e.target.value })}></input>
+                </div>
+                <div className="d-block">
+                    <label>1pm</label>
+                    <input type="radio" value={"1"}
+                        checked={newEvent.hour === '1'}
+                        onChange={(e) => setNewEvent({ ...newEvent, hour: e.target.value })}></input>
+                </div>
+                <div className="d-block">
                     <label>2pm</label>
                     <input type="radio" value={"2"}
                         checked={newEvent.hour === '2'}
@@ -74,6 +86,18 @@ export const Calendary = () => {
                     <label>4pm</label>
                     <input type="radio" value={"4"}
                         checked={newEvent.hour === '4'}
+                        onChange={(e) => setNewEvent({ ...newEvent, hour: e.target.value })}></input>
+                </div>
+                <div className="d-block">
+                    <label>5pm</label>
+                    <input type="radio" value={"5"}
+                        checked={newEvent.hour === '5'}
+                        onChange={(e) => setNewEvent({ ...newEvent, hour: e.target.value })}></input>
+                </div>
+                <div className="d-block">
+                    <label>6pm</label>
+                    <input type="radio" value={"6"}
+                        checked={newEvent.hour === '6'}
                         onChange={(e) => setNewEvent({ ...newEvent, hour: e.target.value })}></input>
                 </div>
 
@@ -97,7 +121,7 @@ export const Calendary = () => {
                         <div>
                             <h1>{item.name}</h1>
                             <h6>{item.quantity}</h6>
-                            <h6>{item.start_time.slice(0, 17)} at: {item.hour}</h6>
+                            <h6>{item.start_time.slice(0, 17)} at: {item.hour <= "12" ? `${item.hour}am` : `${item.hour}pm`}</h6>
                             <p>{item.description}</p>
                         </div>
                     )

@@ -69,9 +69,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			//////login finish//////
 			createTask: (data, made_by) => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
 				fetch(`${process.env.BACKEND_URL}/api/task`, {
 					method: "POST",
-					headers: { "Content-Type": "application/json" },
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${token}`,
+					},
 					body: JSON.stringify({
 						task: data,
 						made_by: made_by
@@ -84,16 +90,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			getTask: () => {
-				fetch(`${process.env.BACKEND_URL}/api/task`)
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
+				fetch(`${process.env.BACKEND_URL}/api/task`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${token}`,
+					}
+				})
 					.then(res => res.json())
 					.then(info => setStore({ tasks: info }))
 					.catch((error) => console.log(error))
 			},
 
 			changeTask: (data, id) => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
 				fetch(`${process.env.BACKEND_URL}/api/task/${id}`, {
 					method: "PUT",
-					headers: { "Content-Type": "application/json" },
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${token}`,
+					},
 					body: JSON.stringify({
 						answer_type: data
 					})
@@ -104,10 +125,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			deleteTask: (id) => {
+				let store = getStore();
+				let token = sessionStorage.getItem("jwt-token");
+				console.log(token)
 				fetch(`${process.env.BACKEND_URL}/api/task/${id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",
+						"Authorization": `Bearer ${token}`,
 					},
 				})
 					.then((res) => res.json())
@@ -346,6 +371,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(res => res.json())
 					.then(info => setStore({ order: info }))
 					.catch((error) => console.log(error))
+			},
+
+			deleteOrder: (id) => {
+				fetch(`${process.env.BACKEND_URL}/api/order_system/${id}`, {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				})
+					.then((res) => res.json())
+					.then((info) => setStore({ order: info }))
+					.catch((err) => console.log(err));
 			},
 
 

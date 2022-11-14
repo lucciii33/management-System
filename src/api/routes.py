@@ -62,6 +62,7 @@ def register_user():
 
 
 @api.route('/task', methods=['GET'])
+@jwt_required()
 def get_tasks():
 
     todo_query = Project.query.all()
@@ -73,6 +74,7 @@ def get_tasks():
     return jsonify(all_todos), 200
 
 @api.route('/task', methods=['POST'])
+@jwt_required()
 def post_tasks():
     body = request.get_json()
     #explication about body
@@ -85,6 +87,7 @@ def post_tasks():
     return jsonify(all_tasks), 200
 
 @api.route('/task/<int:id>', methods=['PUT'])
+@jwt_required()
 def edit_tasks(id):
     body = request.get_json()
 
@@ -102,6 +105,7 @@ def edit_tasks(id):
     return jsonify(all_tasks), 200
 
 @api.route('/task/<int:id>', methods=['DELETE'])
+@jwt_required()
 def delete_tasks(id):
     task_id = Project.query.get(id)
     if task_id is None:
@@ -321,5 +325,20 @@ def edit_orders(id):
 
     order_query = Order.query.all()
     all_orders = list(map(lambda x: x.serialize(),  order_query))
+
+    return jsonify(all_orders), 200
+
+@api.route('/order_system/<int:id>', methods=['DELETE'])
+def delete_orders(id):
+    order_id = Order.query.get(id)
+    if order_id is None:
+        raise APIException('order not found', status_code=404)
+   
+    db.session.delete(order_id)
+    db.session.commit()
+
+    
+    order_query = Order.query.all()
+    all_orders = list(map(lambda x: x.serialize(), order_query))
 
     return jsonify(all_orders), 200

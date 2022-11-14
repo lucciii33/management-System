@@ -32,6 +32,7 @@ export const KitchenOrders = (data) => {
                                 <div className="d-flex ">
                                     <button className="inProgressOrder m-1" onClick={() => actions.editOrderStatus("inProgress", item.id)}><i className="fas fa-spinner"></i></button>
                                     <button className="orderDone m-1" onClick={() => actions.editOrderStatus("Done", item.id)}><i className="far fa-check-circle" /></button>
+                                    <button className="orderdelete" onClick={() => actions.deleteOrder(item.id)}><i class="fas fa-trash-alt"></i></button>
                                 </div>
                             </div>
                         </div>
