@@ -83,25 +83,7 @@ class Staff(db.Model):
             # do not serialize the password, its a security breach
         }
         
-class HoursTracker(db.Model):
-    
-    id = db.Column(db.Integer, primary_key=True)
-    # person_id = db.Column(db.Integer, db.ForeignKey('inandout.id'), nullable=False)
-    # time_stamp = db.relationship("InAndOut", backref="HoursTracker")
-    start_time = db.Column(db.DateTime(timezone=True) )
-    end_time = db.Column(db.DateTime(timezone=True) )
-    
 
-    def __repr__(self):
-        return f'<Staff {self. id }>'
-
-    def serialize(self):
-        return {
-            "start_time": self.start_time,
-            "end_time": self.end_time,
-            "id": self.id,
-            # do not serialize the password, its a security breach
-        }
 
 class InAndOut(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -111,6 +93,8 @@ class InAndOut(db.Model):
     start_time = db.Column(db.DateTime(timezone=True) )
     end_time = db.Column(db.DateTime(timezone=True))
     clock_in = db.Column(db.Boolean(), unique=False, nullable=False)
+    # time_tracker = db.relationship("HoursTracker", backref="employ_id", lazy=True)
+    
     # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
     
 
@@ -125,6 +109,26 @@ class InAndOut(db.Model):
             "clock_in": self.clock_in,
             "name": self.name,
             "end_time": self.end_time,
+            # do not serialize the password, its a security breach
+        }
+        
+class HoursTracker(db.Model):
+    
+    id = db.Column(db.Integer, primary_key=True)
+    # employ_id = db.Column(db.Integer, db.ForeignKey('inandout.id'), nullable=False)
+    # person = db.relationship("InAndOut", back_populates="hours")
+    start_time = db.Column(db.DateTime(timezone=True) )
+    end_time = db.Column(db.DateTime(timezone=True) )
+    
+
+    def __repr__(self):
+        return f'<Staff {self. id }>'
+
+    def serialize(self):
+        return {
+            "start_time": self.start_time,
+            "end_time": self.end_time,
+            "id": self.id,
             # do not serialize the password, its a security breach
         }
 
