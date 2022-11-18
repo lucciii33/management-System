@@ -93,7 +93,8 @@ class InAndOut(db.Model):
     start_time = db.Column(db.DateTime(timezone=True) )
     end_time = db.Column(db.DateTime(timezone=True))
     clock_in = db.Column(db.Boolean(), unique=False, nullable=False)
-    # time_tracker = db.relationship("HoursTracker", backref="employ_id", lazy=True)
+    # hourtracker_id = db.Column(db.Integer, db.ForeignKey('hourstracker.id'), nullable=False)
+    # time_tracker = db.relationship("HoursTracker", back_populates="person")
     
     # stat_type = db.Column(db.Enum(StatusType),values_callable=lambda x: [str(stat.value) for stat in StatusType])
     
@@ -116,7 +117,7 @@ class HoursTracker(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     # employ_id = db.Column(db.Integer, db.ForeignKey('inandout.id'), nullable=False)
-    # person = db.relationship("InAndOut", back_populates="hours")
+    # person = db.relationship("InAndOut", back_populates="time_tracker")
     start_time = db.Column(db.DateTime(timezone=True) )
     end_time = db.Column(db.DateTime(timezone=True) )
     
